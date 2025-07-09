@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.view.ActionMode
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
     private var filterType: FilterType = FilterType.ALL
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(
+            AppCompatDelegate.MODE_NIGHT_NO
+        )
         super.onCreate(savedInstanceState)
         // Yalnızca dikey mod
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -121,7 +125,7 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
     }
 
     private fun setupLogout() {
-        findViewById<Button>(R.id.btnLogout).setOnClickListener {
+        findViewById<Button>(R.id.buttonBack).setOnClickListener {
             Prefs.setLoggedOut(this)
             goLogin()
         }
@@ -163,29 +167,71 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
         finish()
     }
 
-    // --- Options menu (Sort + Filter) ---
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_sort, menu)
+
+        // Sort submenu’sini alıp tekillik ayarla
+        menu.findItem(R.id.menu_sort).subMenu
+            ?.setGroupCheckable(R.id.group_sort, true, true)
+
+        // Filter submenu’sini alıp tekillik ayarla
+        menu.findItem(R.id.menu_filter).subMenu
+            ?.setGroupCheckable(R.id.group_filter, true, true)
+
+        // İstersen başlangıçta default işaretle:
+        menu.findItem(R.id.action_sort_due_asc).isChecked = true
+        menu.findItem(R.id.action_filter_all).isChecked  = true
+
         return true
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            // Sort
-            R.id.action_sort_due_asc     -> sortType = SortType.DUE_ASC
-            R.id.action_sort_due_desc    -> sortType = SortType.DUE_DESC
-            R.id.action_sort_amount_asc  -> sortType = SortType.AMOUNT_ASC
-            R.id.action_sort_amount_desc -> sortType = SortType.AMOUNT_DESC
+            // --- SIRALAMA SEÇENEKLERİ ---
+            R.id.action_sort_due_asc -> {
+                sortType = SortType.DUE_ASC
+                item.isChecked = true
+            }
+            R.id.action_sort_due_desc -> {
+                sortType = SortType.DUE_DESC
+                item.isChecked = true
+            }
+            R.id.action_sort_amount_asc -> {
+                sortType = SortType.AMOUNT_ASC
+                item.isChecked = true
+            }
+            R.id.action_sort_amount_desc -> {
+                sortType = SortType.AMOUNT_DESC
+                item.isChecked = true
+            }
 
-            // Filter
-            R.id.action_filter_all       -> filterType = FilterType.ALL
-            R.id.action_filter_paid      -> filterType = FilterType.PAID
-            R.id.action_filter_unpaid    -> filterType = FilterType.UNPAID
-            R.id.action_filter_overdue   -> filterType = FilterType.OVERDUE
+            // --- FİLTRE SEÇENEKLERİ ---
+            R.id.action_filter_all -> {
+                filterType = FilterType.ALL
+                item.isChecked = true
+            }
+            R.id.action_filter_paid -> {
+                filterType = FilterType.PAID
+                item.isChecked = true
+            }
+            R.id.action_filter_unpaid -> {
+                filterType = FilterType.UNPAID
+                item.isChecked = true
+            }
+            R.id.action_filter_overdue -> {
+                filterType = FilterType.OVERDUE
+                item.isChecked = true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
+
+        // Seçime göre veriyi güncelle
         applyFilterAndSort()
-        return super.onOptionsItemSelected(item)
+        return true
     }
+
+
 
     // --- ActionMode.Callback for multi-delete ---
     override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
@@ -206,4 +252,6 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
         adapter.clearSelection()
         actionMode = null
     }
+
+
 }

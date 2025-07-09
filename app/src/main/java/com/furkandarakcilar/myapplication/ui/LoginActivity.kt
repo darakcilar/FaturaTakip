@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.furkandarakcilar.myapplication.R
 import com.furkandarakcilar.myapplication.util.Prefs
 
@@ -20,6 +21,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var llAccounts: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(
+            AppCompatDelegate.MODE_NIGHT_NO
+        )
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
 

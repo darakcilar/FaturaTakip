@@ -1,36 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorBackground">
 
-    <EditText
-        android:id="@+id/etNewUser"
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="24dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Yeni Kullanıcı Adı"/>
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/etNewPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Şifre"
-        android:inputType="textPassword"
-        android:layout_marginTop="12dp"/>
+        <!-- Yeni Kullanıcı Adı -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Yeni Kullanıcı Adı"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintTextColor="@color/colorOnSurface">
 
-    <EditText
-        android:id="@+id/etNewPassConfirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Şifre (Tekrar)"
-        android:inputType="textPassword"
-        android:layout_marginTop="12dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNewUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorOnSurface"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Kayıt Ol"
-        android:layout_marginTop="16dp"/>
-</LinearLayout>
+        <!-- Şifre -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="Şifre"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintTextColor="@color/colorOnSurface">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNewPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColor="@color/colorOnSurface"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Şifre (Tekrar) -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="Şifre (Tekrar)"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintTextColor="@color/colorOnSurface">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNewPassConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColor="@color/colorOnSurface"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Kayıt Ol Butonu -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            style="@style/Widget.MyApp.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Kayıt Ol"/>
+    </LinearLayout>
+</ScrollView>

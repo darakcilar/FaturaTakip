@@ -1,43 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- Sort Bölümü -->
-    <group android:id="@+id/group_sort" android:checkableBehavior="single">
-        <item
-            android:id="@+id/action_sort_due_asc"
-            android:checkable="false"
-            android:title="Tarih Artan" />
-        <item
-            android:id="@+id/action_sort_due_desc"
-            android:checkable="false"
-            android:title="Tarih Azalan" />
-        <item
-            android:id="@+id/action_sort_amount_asc"
-            android:checkable="false"
-            android:title="Tutar Artan" />
-        <item
-            android:id="@+id/action_sort_amount_desc"
-            android:checkable="false"
-            android:title="Tutar Azalan" />
-    </group>
-
-    <!-- Filter Bölümü -->
+    <!-- Sırala -->
     <item
-        android:checkable="false"
-        android:title="Filtrele">
+        android:id="@+id/menu_sort"
+        android:title="Sırala"
+        app:showAsAction="never">
         <menu>
-            <item
-                android:id="@+id/action_filter_all"
-                android:title="Tüm Faturalar" />
-            <item
-                android:id="@+id/action_filter_paid"
-                android:title="Ödenen Faturalar" />
-            <item
-                android:id="@+id/action_filter_unpaid"
-                android:title="Ödenmemiş Faturalar" />
-            <item
-                android:id="@+id/action_filter_overdue"
-                android:title="Süresi Geçmiş Faturalar" />
+            <group
+                android:id="@+id/group_sort"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_sort_due_asc"
+                    android:title="Tarih Artan"
+                    android:checkable="true" />
+                <item
+                    android:id="@+id/action_sort_due_desc"
+                    android:title="Tarih Azalan"
+                    android:checkable="true" />
+                <item
+                    android:id="@+id/action_sort_amount_asc"
+                    android:title="Tutar Artan"
+                    android:checkable="true" />
+                <item
+                    android:id="@+id/action_sort_amount_desc"
+                    android:title="Tutar Azalan"
+                    android:checkable="true" />
+            </group>
         </menu>
     </item>
+
+    <!-- Filtrele -->
+    <item
+        android:id="@+id/menu_filter"
+        android:title="Filtrele"
+        app:showAsAction="never">
+        <menu>
+            <group
+                android:id="@+id/group_filter"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_filter_all"
+                    android:title="Tüm Faturalar"
+                    android:checkable="true"/>
+                <item
+                    android:id="@+id/action_filter_paid"
+                    android:title="Ödenen"
+                    android:checkable="true"/>
+                <item
+                    android:id="@+id/action_filter_unpaid"
+                    android:title="Ödenmemiş"
+                    android:checkable="true"/>
+                <item
+                    android:id="@+id/action_filter_overdue"
+                    android:title="Süresi Geçmiş"
+                    android:checkable="true"/>
+            </group>
+        </menu>
+    </item>
+
 </menu>

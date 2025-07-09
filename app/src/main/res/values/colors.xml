@@ -7,5 +7,15 @@
     <color name="bg_paid_green">#76FF03</color>
     <color name="bg_overdue_orange">#FF9100</color>
     <color name="bg_paid_white">#FFFFFFFF</color>
-    <color name="colorPrimaryDark">#00B0FF</color>
+
+
+
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorSecondary">#03DAC5</color>
+    <color name="colorBackground">#F5F5F5</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorOnSurface">#000000</color>
 </resources>

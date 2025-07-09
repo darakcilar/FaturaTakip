@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorBackground">
 
     <LinearLayout
         android:orientation="vertical"
@@ -9,54 +11,82 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/etUsername"
+        <!-- Kullanıcı Adı -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Kullanıcı Adı"/>
+            android:hint="Kullanıcı Adı"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintTextColor="@color/colorOnSurface">
 
-        <EditText
-            android:id="@+id/etPassword"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorOnSurface"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Şifre -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:hint="Şifre"
-            android:inputType="textPassword"
-            android:layout_marginTop="12dp"/>
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintTextColor="@color/colorOnSurface">
 
-        <CheckBox
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColor="@color/colorOnSurface"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Beni Hatırla -->
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/cbRemember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Beni Hatırla"
-            android:layout_marginTop="12dp"/>
+            android:textColor="@color/colorOnSurface"/>
 
-        <Button
+        <!-- Giriş Yap -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
+            style="@style/Widget.MyApp.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Giriş Yap"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="24dp"
+            android:text="Giriş Yap"/>
 
+        <!-- Kayıt Ol -->
         <TextView
             android:id="@+id/tvRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Kayıt Ol"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="16sp"
-            android:layout_marginTop="24dp"/>
+            android:textColor="@color/colorPrimary"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
 
-        <!-- Yeni: Hesaplar başlığı ve konteyner -->
+        <!-- Hesaplar Başlığı -->
         <TextView
             android:id="@+id/tvAccountsLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hesaplar"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:layout_marginTop="32dp"
+            android:padding="12dp"
+            android:background="@drawable/bg_category_header"
+            android:text="Hesaplar"
+            android:textColor="@color/colorOnSecondary"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:visibility="gone"/>
 
+        <!-- Hesaplar Konteyneri -->
         <LinearLayout
             android:id="@+id/llAccounts"
             android:orientation="vertical"

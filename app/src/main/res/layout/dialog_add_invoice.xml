@@ -1,47 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/colorSurface">
 
-    <EditText
-        android:id="@+id/etTitle"
+    <!-- Fatura Başlığı -->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fatura Başlığı"/>
+        android:hint="Fatura Başlığı"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:hintTextColor="?attr/colorOnSurface">
 
-    <EditText
-        android:id="@+id/etAmount"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSurface"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Tutar -->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:hint="Tutar (örn. 125.50)"
-        android:inputType="numberDecimal"
-        android:layout_marginTop="8dp"/>
+        app:boxStrokeColor="@color/colorPrimary"
+        app:hintTextColor="?attr/colorOnSurface">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="?attr/colorOnSurface"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Son Ödeme Tarihi -->
     <TextView
         android:id="@+id/tvDueDate"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Son Ödeme Tarihi"
+        android:layout_marginTop="12dp"
         android:padding="12dp"
-        android:textColor="?attr/colorPrimary"
-        android:background="?android:attr/selectableItemBackground"
-        android:layout_marginTop="8dp"/>
+        android:background="?attr/selectableItemBackground"
+        android:text="Son Ödeme Tarihi"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"/>
 
-    <!-- Yeni: Kategori etiketi ve Spinner -->
+    <!-- Kategori -->
     <TextView
         android:id="@+id/tvCategoryLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Kategori"
-        android:textSize="14sp"
-        android:layout_marginTop="12dp"/>
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        android:textColor="?attr/colorOnSurface" />
 
     <Spinner
         android:id="@+id/spinnerCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"/>
+        android:layout_marginTop="4dp"
+        android:spinnerMode="dropdown"
+        android:backgroundTint="?attr/colorPrimary"
+        android:popupBackground="@color/colorSurface"/>
+
 </LinearLayout>
