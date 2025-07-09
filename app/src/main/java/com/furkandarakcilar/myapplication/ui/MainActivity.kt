@@ -1,0 +1,209 @@
+package com.furkandarakcilar.myapplication.ui
+
+import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Button
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ActionMode
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.furkandarakcilar.myapplication.R
+import com.furkandarakcilar.myapplication.data.Invoice
+import com.furkandarakcilar.myapplication.util.Prefs
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
+class MainActivity : AppCompatActivity(), ActionMode.Callback {
+
+    private val viewModel: InvoiceViewModel by viewModels()
+    private lateinit var adapter: InvoiceAdapter
+    private var actionMode: ActionMode? = null
+
+    private var rawList: List<Invoice> = emptyList()
+    private var sortType: SortType = SortType.DUE_DESC
+    private var filterType: FilterType = FilterType.ALL
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Yalnızca dikey mod
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+        if (!Prefs.isLoggedIn(this)) {
+            goLogin()
+            return
+        }
+
+        setContentView(R.layout.activity_main)
+        setupToolbar()
+        hideSystemUI()
+        applyWindowInsets()
+        setupAdapter()
+        setupFab()
+        setupLogout()
+
+        viewModel.allInvoices.observe(this) { list ->
+            rawList = list
+            applyFilterAndSort()
+        }
+    }
+
+    private fun setupToolbar() {
+        findViewById<MaterialToolbar>(R.id.toolbar).also {
+            setSupportActionBar(it)
+        }
+    }
+
+    private fun applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { v, insets ->
+            val sys = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(0, sys.top, 0, sys.bottom)
+            insets
+        }
+    }
+
+    private fun setupAdapter() {
+        adapter = InvoiceAdapter(
+            onClick = { inv -> handleInvoiceClick(inv) },
+            onLongClick = { inv ->
+                if (actionMode == null) actionMode = startSupportActionMode(this)
+                adapter.toggleSelection(inv)
+                updateActionTitle()
+                true
+            }
+        )
+        findViewById<RecyclerView>(R.id.invoiceRecyclerView).apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = this@MainActivity.adapter
+        }
+    }
+
+    private fun handleInvoiceClick(inv: Invoice) {
+        if (actionMode != null) {
+            adapter.toggleSelection(inv)
+            updateActionTitle()
+        } else {
+            showPaymentConfirmation(inv)
+        }
+    }
+
+    private fun showPaymentConfirmation(inv: Invoice) {
+        val currentlyPaid = inv.isPaid
+        val message = if (currentlyPaid)
+            "Bu faturayı ödenmemiş olarak işaretlemek istediğinize emin misiniz?"
+        else
+            "Bu faturayı ödenmiş olarak işaretlemek istediğinize emin misiniz?"
+
+        AlertDialog.Builder(this)
+            .setTitle(inv.title)
+            .setMessage(message)
+            .setNegativeButton("Hayır", null)
+            .setPositiveButton("Evet") { _, _ ->
+                viewModel.update(inv.copy(isPaid = !currentlyPaid))
+            }
+            .show()
+    }
+
+    private fun setupFab() {
+        findViewById<FloatingActionButton>(R.id.fabAdd)
+            .setOnClickListener {
+                AddInvoiceDialog(this) { title, amount, dueDate, category ->
+                    viewModel.insert(title, amount, dueDate, category)
+                }.show()
+            }
+    }
+
+    private fun setupLogout() {
+        findViewById<Button>(R.id.btnLogout).setOnClickListener {
+            Prefs.setLoggedOut(this)
+            goLogin()
+        }
+    }
+
+    private fun applyFilterAndSort() {
+        val now = System.currentTimeMillis()
+        val filtered = when (filterType) {
+            FilterType.ALL     -> rawList
+            FilterType.PAID    -> rawList.filter { it.isPaid }
+            FilterType.UNPAID  -> rawList.filter { !it.isPaid && it.dueDate >= now }
+            FilterType.OVERDUE -> rawList.filter { !it.isPaid && it.dueDate < now }
+        }
+        val sorted = when (sortType) {
+            SortType.DUE_ASC     -> filtered.sortedBy { it.dueDate }
+            SortType.DUE_DESC    -> filtered.sortedByDescending { it.dueDate }
+            SortType.AMOUNT_ASC  -> filtered.sortedBy { it.amount }
+            SortType.AMOUNT_DESC -> filtered.sortedByDescending { it.amount }
+        }
+        adapter.submitInvoices(sorted)
+    }
+
+    private fun updateActionTitle() {
+        val count = adapter.getSelectedItems().size
+        if (count == 0) actionMode?.finish()
+        else actionMode?.title = "$count seçili"
+    }
+
+    private fun hideSystemUI() {
+        WindowInsetsControllerCompat(window, window.decorView).apply {
+            hide(WindowInsetsCompat.Type.systemBars())
+            systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+    private fun goLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
+
+    // --- Options menu (Sort + Filter) ---
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_sort, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            // Sort
+            R.id.action_sort_due_asc     -> sortType = SortType.DUE_ASC
+            R.id.action_sort_due_desc    -> sortType = SortType.DUE_DESC
+            R.id.action_sort_amount_asc  -> sortType = SortType.AMOUNT_ASC
+            R.id.action_sort_amount_desc -> sortType = SortType.AMOUNT_DESC
+
+            // Filter
+            R.id.action_filter_all       -> filterType = FilterType.ALL
+            R.id.action_filter_paid      -> filterType = FilterType.PAID
+            R.id.action_filter_unpaid    -> filterType = FilterType.UNPAID
+            R.id.action_filter_overdue   -> filterType = FilterType.OVERDUE
+        }
+        applyFilterAndSort()
+        return super.onOptionsItemSelected(item)
+    }
+
+    // --- ActionMode.Callback for multi-delete ---
+    override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+        mode.menuInflater.inflate(R.menu.menu_selection, menu)
+        return true
+    }
+
+    override fun onPrepareActionMode(mode: ActionMode, menu: Menu) = false
+
+    override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean =
+        if (item.itemId == R.id.action_delete) {
+            adapter.getSelectedItems().forEach { viewModel.delete(it) }
+            mode.finish()
+            true
+        } else false
+
+    override fun onDestroyActionMode(mode: ActionMode) {
+        adapter.clearSelection()
+        actionMode = null
+    }
+}

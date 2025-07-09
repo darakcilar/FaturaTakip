@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Sort Bölümü -->
+    <group android:id="@+id/group_sort" android:checkableBehavior="single">
+        <item
+            android:id="@+id/action_sort_due_asc"
+            android:checkable="false"
+            android:title="Tarih Artan" />
+        <item
+            android:id="@+id/action_sort_due_desc"
+            android:checkable="false"
+            android:title="Tarih Azalan" />
+        <item
+            android:id="@+id/action_sort_amount_asc"
+            android:checkable="false"
+            android:title="Tutar Artan" />
+        <item
+            android:id="@+id/action_sort_amount_desc"
+            android:checkable="false"
+            android:title="Tutar Azalan" />
+    </group>
+
+    <!-- Filter Bölümü -->
+    <item
+        android:checkable="false"
+        android:title="Filtrele">
+        <menu>
+            <item
+                android:id="@+id/action_filter_all"
+                android:title="Tüm Faturalar" />
+            <item
+                android:id="@+id/action_filter_paid"
+                android:title="Ödenen Faturalar" />
+            <item
+                android:id="@+id/action_filter_unpaid"
+                android:title="Ödenmemiş Faturalar" />
+            <item
+                android:id="@+id/action_filter_overdue"
+                android:title="Süresi Geçmiş Faturalar" />
+        </menu>
+    </item>
+</menu>
