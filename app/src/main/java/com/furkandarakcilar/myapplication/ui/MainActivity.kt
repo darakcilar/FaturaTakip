@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.view.ActionMode
@@ -36,11 +35,9 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(
-            AppCompatDelegate.MODE_NIGHT_NO
-        )
+        // Gece modunu kapat
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
-
 
         if (!Prefs.isLoggedIn(this)) {
             goLogin()
@@ -48,7 +45,7 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
         }
 
         setContentView(R.layout.activity_main)
-        setupToolbar()
+        setupToolbar()       // ← Toolbar’ı tanımlayıp Up oku ekliyoruz
         applyWindowInsets()
         setupAdapter()
         setupFab()
@@ -61,10 +58,30 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
     }
 
     private fun setupToolbar() {
-        findViewById<MaterialToolbar>(R.id.toolbar).also {
-            setSupportActionBar(it)
+        findViewById<MaterialToolbar>(R.id.toolbar).also { toolbar ->
+            setSupportActionBar(toolbar)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setDisplayShowHomeEnabled(true)
+
+            // Up okuna tıklandığında Login ekranına dön
+            toolbar.setNavigationOnClickListener {
+                goLogin()
+            }
         }
     }
+
+    // Donanım veya sistem “up” tuşuna basıldığında da Login’e dönsün
+    override fun onSupportNavigateUp(): Boolean {
+        goLogin()
+        return true
+    }
+
+    // Eğer onOptionsItemSelected kullanmak isterseniz:
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        if (item.itemId == android.R.id.home) {
+            goLogin()
+            true
+        } else super.onOptionsItemSelected(item)
 
     private fun applyWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { v, insets ->
@@ -105,19 +122,20 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
             "Bu faturayı ödenmemiş olarak işaretlemek istediğinize emin misiniz?"
         else
             "Bu faturayı ödenmiş olarak işaretlemek istediğinize emin misiniz?"
-       val dialog=  AlertDialog.Builder(this)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle(inv.title)
             .setMessage(message)
             .setNegativeButton("Hayır", null)
             .setPositiveButton("Evet") { _, _ ->
                 viewModel.update(inv.copy(isPaid = !currentlyPaid))
             }
-       .show()
-      dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-          .setTextColor(ContextCompat.getColor(this,R.color.colorSecondary))
+            .show()
 
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-            .setTextColor(ContextCompat.getColor(this,R.color.colorSecondary))
+        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(ContextCompat.getColor(this, R.color.colorSecondary))
+        dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE)
+            .setTextColor(ContextCompat.getColor(this, R.color.colorSecondary))
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -132,8 +150,7 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
 
     private fun setupMenuButton() {
         findViewById<Button>(R.id.buttonBack).setOnClickListener {
-            val intent = Intent(this, AnalysisActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, AnalysisActivity::class.java))
         }
     }
 
@@ -163,105 +180,36 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
     @SuppressLint("GestureBackNavigation")
     override fun onBackPressed() {
         super.onBackPressed()
-        // 1) Seçim modundaysa önce onu kapat
         actionMode?.let {
             it.finish()
             return
         }
-        // 2) Normalde Login ekranına yönlendir
         goLogin()
     }
 
     private fun goLogin() {
         startActivity(Intent(this, LoginActivity::class.java))
+        overridePendingTransition(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
         finish()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_sort, menu)
-
-        // Sort submenu’sini alıp tekillik ayarla
-        menu.findItem(R.id.menu_sort).subMenu
-            ?.setGroupCheckable(R.id.group_sort, true, true)
-
-        // Filter submenu’sini alıp tekillik ayarla
-        menu.findItem(R.id.menu_filter).subMenu
-            ?.setGroupCheckable(R.id.group_filter, true, true)
-
-        // İstersen başlangıçta default işaretle:
-        menu.findItem(R.id.action_sort_due_asc).isChecked = true
-        menu.findItem(R.id.action_filter_all).isChecked  = true
-
-        return true
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            // --- SIRALAMA SEÇENEKLERİ ---
-            R.id.action_sort_due_asc -> {
-                sortType = SortType.DUE_ASC
-                item.isChecked = true
-            }
-            R.id.action_sort_due_desc -> {
-                sortType = SortType.DUE_DESC
-                item.isChecked = true
-            }
-            R.id.action_sort_amount_asc -> {
-                sortType = SortType.AMOUNT_ASC
-                item.isChecked = true
-            }
-            R.id.action_sort_amount_desc -> {
-                sortType = SortType.AMOUNT_DESC
-                item.isChecked = true
-            }
-
-            // --- FİLTRE SEÇENEKLERİ ---
-            R.id.action_filter_all -> {
-                filterType = FilterType.ALL
-                item.isChecked = true
-            }
-            R.id.action_filter_paid -> {
-                filterType = FilterType.PAID
-                item.isChecked = true
-            }
-            R.id.action_filter_unpaid -> {
-                filterType = FilterType.UNPAID
-                item.isChecked = true
-            }
-            R.id.action_filter_overdue -> {
-                filterType = FilterType.OVERDUE
-                item.isChecked = true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-
-        // Seçime göre veriyi güncelle
-        applyFilterAndSort()
-        return true
-    }
-
-
-
-    // --- ActionMode.Callback for multi-delete ---
+    // --- ActionMode.Callback ---
     override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
         mode.menuInflater.inflate(R.menu.menu_selection, menu)
         return true
     }
-
     override fun onPrepareActionMode(mode: ActionMode, menu: Menu) = false
-
     override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean =
         if (item.itemId == R.id.action_delete) {
             adapter.getSelectedItems().forEach { viewModel.delete(it) }
             mode.finish()
             true
         } else false
-
     override fun onDestroyActionMode(mode: ActionMode) {
         adapter.clearSelection()
         actionMode = null
     }
-
-
 }

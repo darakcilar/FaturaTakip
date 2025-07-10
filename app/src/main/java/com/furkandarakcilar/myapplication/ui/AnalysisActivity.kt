@@ -1,5 +1,8 @@
 package com.furkandarakcilar.myapplication.ui
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -20,19 +23,22 @@ class AnalysisActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.analysis_activity)
 
-        // Toolbar ve "Up" butonu
+        // Toolbar & Up ok tuşu
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar_analysis)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { finish() }
+        toolbar.navigationIcon?.setTint(Color.WHITE)
+        toolbar.setNavigationOnClickListener {
+            goMain()
+        }
 
-        // View'ları bağla
+        // View’ları bağla
         val tvPaid          = findViewById<TextView>(R.id.tvTotalPaid)
         val tvUnpaid        = findViewById<TextView>(R.id.tvTotalUnpaid)
         val graphPaidUnpaid = findViewById<GraphView>(R.id.graphPaidUnpaid)
         val graphCategory   = findViewById<GraphView>(R.id.graphCategory)
 
-        // Fatura verisini dinle
+        // Veriyi dinle
         viewModel.allInvoices.observe(this) { invoices ->
             updateSummary(tvPaid, tvUnpaid, invoices)
             drawPaidUnpaidChart(graphPaidUnpaid, invoices)
@@ -40,19 +46,41 @@ class AnalysisActivity : AppCompatActivity() {
         }
     }
 
+    // goMain: MainActivity’ye dön ve animasyon uygula
+    private fun goMain() {
+        startActivity(Intent(this, MainActivity::class.java))
+        overridePendingTransition(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
+        finish()
+    }
+
+    // Donanım “up” tuşuna basıldığında da goMain() çalışsın
+    override fun onSupportNavigateUp(): Boolean {
+        goMain()
+        return true
+    }
+
+    // Cihaz “geri” tuşuna basıldığında da goMain() çalışsın
+    @SuppressLint("GestureBackNavigation")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        goMain()
+    }
+
     private fun updateSummary(
         tvPaid: TextView,
         tvUnpaid: TextView,
         invoices: List<Invoice>
     ) {
-        // sumOf ambiguity kaldırıldı, Double dönüşümü kullanılıyor
         val totalPaid: Double = invoices
             .filter { it.isPaid }
-            .sumOf   { it.amount.toDouble() }
+            .sumOf { it.amount.toDouble() }
 
         val totalUnpaid: Double = invoices
             .filter { !it.isPaid }
-            .sumOf   { it.amount.toDouble() }
+            .sumOf { it.amount.toDouble() }
 
         tvPaid.text   = "Ödenmiş: ₺%,.2f".format(totalPaid)
         tvUnpaid.text = "Ödenmemiş: ₺%,.2f".format(totalUnpaid)
@@ -65,44 +93,46 @@ class AnalysisActivity : AppCompatActivity() {
         val series = BarGraphSeries(arrayOf(
             DataPoint(0.0, paid),
             DataPoint(1.0, unpaid)
-        ))
-        series.spacing = 50
-        series.isDrawValuesOnTop = true
-        // default paint size/color yeterli
+        )).apply {
+            spacing = 50
+            isDrawValuesOnTop = true
+        }
 
         graph.removeAllSeries()
         graph.addSeries(series)
 
-        // X ekseni etiketlerini ayarla
         val labels = arrayOf("Ödenen", "Ödenmeyen")
-        graph.gridLabelRenderer.labelFormatter = StaticLabelsFormatter(graph).apply {
-            setHorizontalLabels(labels)
+        graph.gridLabelRenderer.apply {
+            numHorizontalLabels = labels.size
+            labelFormatter = StaticLabelsFormatter(graph).apply {
+                setHorizontalLabels(labels)
+            }
         }
-        graph.gridLabelRenderer.numHorizontalLabels = labels.size
     }
 
     private fun drawCategoryChart(graph: GraphView, invoices: List<Invoice>) {
-        // Kategori bazlı toplam tutar
         val grouped = invoices
             .groupBy { it.category }
-            .mapValues { entry -> entry.value.sumOf { it.amount.toDouble() } }
+            .mapValues { it.value.sumOf { inv -> inv.amount.toDouble() } }
 
         val dataPoints = grouped.entries.mapIndexed { idx, (cat, total) ->
             DataPoint(idx.toDouble(), total)
         }.toTypedArray()
 
-        val series = BarGraphSeries(dataPoints)
-        series.spacing = 30
-        series.isDrawValuesOnTop = true
+        val series = BarGraphSeries(dataPoints).apply {
+            spacing = 30
+            isDrawValuesOnTop = true
+        }
 
         graph.removeAllSeries()
         graph.addSeries(series)
 
-        // Kategori etiketleri
-        graph.gridLabelRenderer.labelFormatter = StaticLabelsFormatter(graph).apply {
-            setHorizontalLabels(grouped.keys.toTypedArray())
+        graph.gridLabelRenderer.apply {
+            numHorizontalLabels = grouped.size
+            labelFormatter = StaticLabelsFormatter(graph).apply {
+                setHorizontalLabels(grouped.keys.toTypedArray())
+            }
+            isVerticalLabelsVisible = false
         }
-        graph.gridLabelRenderer.numHorizontalLabels = grouped.size
-        graph.gridLabelRenderer.isVerticalLabelsVisible = false
     }
 }

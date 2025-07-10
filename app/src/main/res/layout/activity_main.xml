@@ -32,13 +32,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Menüye Dön Butonu -->
+    <!-- Analiz -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonBack"
         style="@style/Widget.MyApp.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Menü"
+        android:text="Analiz"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fabAdd"
         app:layout_constraintBottom_toBottomOf="parent"

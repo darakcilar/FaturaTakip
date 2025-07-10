@@ -1,5 +1,6 @@
 package com.furkandarakcilar.myapplication.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -107,4 +108,11 @@ class LoginActivity : AppCompatActivity() {
             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
         finish()
     }
+    @SuppressLint("GestureBackNavigation")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        // Son Activity’siniz, finishAffinity() ile uygulamayı tamamen kapatın
+        finishAffinity()
+    }
+
 }

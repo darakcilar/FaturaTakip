@@ -1,5 +1,6 @@
 package com.furkandarakcilar.myapplication.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -13,11 +14,13 @@ import com.furkandarakcilar.myapplication.util.Prefs
 class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(
-            AppCompatDelegate.MODE_NIGHT_NO
-        )
+        // Gece modunu kapat
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_activity)
+
+        // Sistem ActionBar’dan Up okunu göster
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val etUser    = findViewById<EditText>(R.id.etNewUser)
         val etPass    = findViewById<EditText>(R.id.etNewPass)
@@ -29,9 +32,8 @@ class RegisterActivity : AppCompatActivity() {
             val pass = etPass.text.toString()
             val pass2= etPassCon.text.toString()
 
-            // 1) Alan kontrolü
             if (user.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Kullanıcı adı ve şifre boş olamaz!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Kullanıcı ve şifre boş olamaz!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             if (pass != pass2) {
@@ -39,21 +41,33 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // 2) Mevcut kullanıcı kontrolü
-            val existing = Prefs.getUserPassword(this, user)
-            if (existing != null) {
-                Toast.makeText(this, "Bu kullanıcı adı zaten kayıtlı!", Toast.LENGTH_SHORT).show()
+            if (Prefs.getUserPassword(this, user) != null) {
+                Toast.makeText(this, "Bu kullanıcı adı kayıtlı!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // 3) Kaydet
             Prefs.saveUserPassword(this, user, pass)
             Toast.makeText(this, "Kayıt başarılı. Lütfen giriş yapın.", Toast.LENGTH_SHORT).show()
-
-            // 4) Login'e dön
-            startActivity(Intent(this, LoginActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-            finish()
+            goLogin()
         }
+    }
+    // ActionBar Up okuna tıklayınca
+    override fun onSupportNavigateUp(): Boolean {
+        goLogin()
+        return true
+    }
+    // Cihazın geri tuşuna basıldığında da
+    @SuppressLint("GestureBackNavigation")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        goLogin()
+    }
+    private fun goLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        overridePendingTransition(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
+        finish()
     }
 }
