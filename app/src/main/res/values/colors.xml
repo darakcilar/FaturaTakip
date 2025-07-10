@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="Redd">#F60404</color>
     <color name="invoice_default_bg">#FFFFFFFF</color>
     <color name="invoice_selected_bg">#C1545F</color>
     <color name="gray_light">#858383</color>
-    <color name="bg_paid_green">#76FF03</color>
-    <color name="bg_overdue_orange">#FF9100</color>
+    <color name="bg_paid_green">#9576FF03</color>
+    <color name="bg_overdue_orange">#7FFF9100</color>
     <color name="bg_paid_white">#FFFFFFFF</color>
 
 

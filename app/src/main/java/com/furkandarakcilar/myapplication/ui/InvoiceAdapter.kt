@@ -108,33 +108,44 @@ class InvoiceAdapter(
         private val tvTitle   : TextView         = view.findViewById(R.id.tvTitle)
         private val tvAmount  : TextView         = view.findViewById(R.id.tvAmount)
         private val tvDueDate : TextView         = view.findViewById(R.id.tvDueDate)
+        private val Durum     : TextView         =view.findViewById(R.id.Durum)
+
+
 
         fun bind(invoice: Invoice, activated: Boolean) {
+            // 1) Mevcut alanları doldur
             tvTitle.text   = invoice.title
             tvAmount.text  = String.format(Locale.getDefault(), "%.2f ₺", invoice.amount)
             tvDueDate.text = dateFmt.format(Date(invoice.dueDate))
 
-            // Filtre renkleri
-            val filterColor = when {
+            // 2) Kart arka plan rengini seç
+            val filterColorRes = when {
                 invoice.isPaid                               -> R.color.bg_paid_green
                 invoice.dueDate < System.currentTimeMillis() -> R.color.bg_overdue_orange
                 else                                         -> R.color.bg_paid_white
             }
-
-            // Seçili ise invoice_selected_bg kullan
-            val bgColorRes = if (activated) {
-                R.color.invoice_selected_bg
-            } else {
-                filterColor
-            }
-
+            val bgColorRes = if (activated) R.color.invoice_selected_bg else filterColorRes
             card.setCardBackgroundColor(
                 ContextCompat.getColor(itemView.context, bgColorRes)
             )
 
+            // 3) Durum metnini ata
+            val statusText = if (invoice.isPaid) "Ödendi" else "Ödenmedi"
+            Durum.text = statusText
+
+            // 4) Durum yazısını filtre rengine uyacak şekilde renklendir (isteğe bağlı)
+            val statusTextColorRes = when {
+                invoice.isPaid                               -> R.color.gray_light
+                invoice.dueDate < System.currentTimeMillis() -> R.color.Redd
+                else                                         -> R.color.Redd
+            }
+            Durum.setTextColor(ContextCompat.getColor(itemView.context, statusTextColorRes))
+
+            // 5) Tıklama dinleyicileri
             itemView.setOnClickListener    { onClick(invoice) }
             itemView.setOnLongClickListener { onLongClick(invoice) }
         }
+
     }
 
     class DiffCallback : DiffUtil.ItemCallback<ListItem>() {

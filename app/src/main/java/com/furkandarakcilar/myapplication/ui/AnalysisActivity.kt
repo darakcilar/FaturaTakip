@@ -1,19 +1,29 @@
 package com.furkandarakcilar.myapplication.ui
 
+import android.R.attr.numColumns
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.furkandarakcilar.myapplication.R
 import com.furkandarakcilar.myapplication.data.Invoice
 import com.google.android.material.appbar.MaterialToolbar
+import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.GridLabelRenderer
+import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.helper.StaticLabelsFormatter
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.LineGraphSeries
+import kotlin.math.roundToInt
 
 class AnalysisActivity : AppCompatActivity() {
 
@@ -103,6 +113,8 @@ class AnalysisActivity : AppCompatActivity() {
 
         val labels = arrayOf("Ödenen", "Ödenmeyen")
         graph.gridLabelRenderer.apply {
+            isHorizontalLabelsVisible = true
+            isVerticalLabelsVisible   = true
             numHorizontalLabels = labels.size
             labelFormatter = StaticLabelsFormatter(graph).apply {
                 setHorizontalLabels(labels)
@@ -111,28 +123,88 @@ class AnalysisActivity : AppCompatActivity() {
     }
 
     private fun drawCategoryChart(graph: GraphView, invoices: List<Invoice>) {
+        val legendCategory   = findViewById<LinearLayout>(R.id.legendCategory)
         val grouped = invoices
             .groupBy { it.category }
             .mapValues { it.value.sumOf { inv -> inv.amount.toDouble() } }
 
-        val dataPoints = grouped.entries.mapIndexed { idx, (cat, total) ->
-            DataPoint(idx.toDouble(), total)
-        }.toTypedArray()
+        // 2) Renk paleti
+        val palette = listOf(
+            Color.parseColor("#F44336"),
+            Color.parseColor("#E91E63"),
+            Color.parseColor("#9C27B0"),
+            Color.parseColor("#3F51B5"),
+            Color.parseColor("#03A9F4"),
+            Color.parseColor("#009688")
+        )
 
-        val series = BarGraphSeries(dataPoints).apply {
-            spacing = 30
-            isDrawValuesOnTop = true
-        }
+        // 3) DataPoint’leri (0.5, 1.5, …) oluştur
+        val points = grouped.entries
+            .mapIndexed { idx, (_, total) -> DataPoint(idx + 0.5, total) }
+            .toTypedArray()
+
+        val count = points.size
+        val maxY  = (grouped.values.maxOrNull() ?: 0.0) * 1.2
 
         graph.removeAllSeries()
-        graph.addSeries(series)
 
+        // 4) Yalnızca yatay grid çizgileri, renk set et
         graph.gridLabelRenderer.apply {
-            numHorizontalLabels = grouped.size
-            labelFormatter = StaticLabelsFormatter(graph).apply {
-                setHorizontalLabels(grouped.keys.toTypedArray())
+            gridStyle = GridLabelRenderer.GridStyle.HORIZONTAL
+            setGridColor(Color.BLACK)
+            setHorizontalLabelsVisible(false)
+            setVerticalLabelsVisible(true)
+            numVerticalLabels = 5
+        }
+
+        // 5) Sol eksen çizgisi (X = 0), kalınlık 4px
+        LineGraphSeries(arrayOf(
+            DataPoint(0.0,   0.0),
+            DataPoint(0.0, maxY)
+        )).apply {
+            color     = Color.BLACK
+            thickness = 4
+        }.also { graph.addSeries(it) }
+
+
+        // 7) Bar serisi – her bar farklı renk
+        BarGraphSeries(points).apply {
+            spacing           = 20
+            isDrawValuesOnTop = true
+            setValueDependentColor { p ->
+                palette[p.x.toInt() % palette.size]
             }
-            isVerticalLabelsVisible = false
+        }.also { graph.addSeries(it) }
+
+        // 8) Viewport sınırları
+        graph.viewport.apply {
+            isXAxisBoundsManual = true
+            setMinX(0.0);    setMaxX(count.toDouble())
+            isYAxisBoundsManual = true
+            setMinY(0.0);    setMaxY(maxY)
+        }
+
+        // 9) Manuel legendCategory doldur
+        legendCategory.removeAllViews()
+        grouped.keys.forEachIndexed { idx, cat ->
+            // renk kutucuğu
+            val sizePx = (16 * resources.displayMetrics.density).toInt()
+            View(this).apply {
+                layoutParams = LinearLayout.LayoutParams(sizePx, sizePx)
+                    .also { it.setMargins(0, 0, sizePx/2, 0) }
+                setBackgroundColor(palette[idx % palette.size])
+            }.also { legendCategory.addView(it) }
+
+            // kategori etiketi
+            TextView(this).apply {
+                text             = cat
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                setTextColor(Color.DKGRAY)
+                layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                ).also { it.setMargins(0, 0, 16, 0) }
+            }.also { legendCategory.addView(it) }
         }
     }
 }
