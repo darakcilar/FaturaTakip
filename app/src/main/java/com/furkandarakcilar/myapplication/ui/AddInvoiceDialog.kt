@@ -2,12 +2,15 @@ package com.furkandarakcilar.myapplication.ui
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import com.furkandarakcilar.myapplication.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,6 +25,7 @@ class AddInvoiceDialog(
     private val context: Context,
     private val onAdd: (title: String, amount: Double, dueDate: Long, category: String) -> Unit
 ) {
+    @RequiresApi(Build.VERSION_CODES.M)
     fun show() {
         val view = LayoutInflater.from(context)
             .inflate(R.layout.dialog_add_invoice, null)
@@ -58,7 +62,7 @@ class AddInvoiceDialog(
             ).show()
         }
 
-        AlertDialog.Builder(context)
+        val dialog = AlertDialog.Builder(context)
             .setTitle("Yeni Fatura Ekle")
             .setView(view)
             .setPositiveButton("Ekle") { _, _ ->
@@ -70,5 +74,9 @@ class AddInvoiceDialog(
             }
             .setNegativeButton("İptal", null)
             .show()
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(context.getColor(R.color.colorSecondary))
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(context.getColor(R.color.colorSecondary))
     }
 }

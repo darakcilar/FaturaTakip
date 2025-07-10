@@ -2,15 +2,18 @@ package com.furkandarakcilar.myapplication.ui
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.view.ActionMode
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -32,11 +35,14 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
     private var sortType: SortType = SortType.DUE_DESC
     private var filterType: FilterType = FilterType.ALL
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(
             AppCompatDelegate.MODE_NIGHT_NO
         )
         super.onCreate(savedInstanceState)
+
+
         // Yalnızca dikey mod
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
@@ -104,17 +110,22 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
             "Bu faturayı ödenmemiş olarak işaretlemek istediğinize emin misiniz?"
         else
             "Bu faturayı ödenmiş olarak işaretlemek istediğinize emin misiniz?"
-
-        AlertDialog.Builder(this)
+       val dialog=  AlertDialog.Builder(this)
             .setTitle(inv.title)
             .setMessage(message)
             .setNegativeButton("Hayır", null)
             .setPositiveButton("Evet") { _, _ ->
                 viewModel.update(inv.copy(isPaid = !currentlyPaid))
             }
-            .show()
+       .show()
+      dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+          .setTextColor(ContextCompat.getColor(this,R.color.colorSecondary))
+
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+            .setTextColor(ContextCompat.getColor(this,R.color.colorSecondary))
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun setupFab() {
         findViewById<FloatingActionButton>(R.id.fabAdd)
             .setOnClickListener {

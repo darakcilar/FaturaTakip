@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Kullanıcı Adı"
-            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorSecondary"
             app:hintTextColor="@color/colorOnSurface">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="Şifre"
-            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorSecondary"
             app:hintTextColor="@color/colorOnSurface">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Kayıt Ol"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorSecondary"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
 
         <!-- Hesaplar Başlığı -->
@@ -82,7 +82,7 @@
             android:padding="12dp"
             android:background="@drawable/bg_category_header"
             android:text="Hesaplar"
-            android:textColor="@color/colorOnSecondary"
+            android:textColor="@color/colorOnPrimary"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:visibility="gone"/>
 

@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Yeni Kullanıcı Adı"
-            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorSecondary"
             app:hintTextColor="@color/colorOnSurface">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="Şifre"
-            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorSecondary"
             app:hintTextColor="@color/colorOnSurface">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="Şifre (Tekrar)"
-            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeColor="@color/colorSecondary"
             app:hintTextColor="@color/colorOnSurface">
 
             <com.google.android.material.textfield.TextInputEditText

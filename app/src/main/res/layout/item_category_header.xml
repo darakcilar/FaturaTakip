@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="12dp"
     android:background="@drawable/bg_category_header"
-    android:textColor="?attr/colorOnSecondary"
+    android:textColor="@color/colorOnPrimary"
     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
     android:fontFamily="sans-serif-medium"
     android:includeFontPadding="false"

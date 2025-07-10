@@ -20,37 +20,50 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/Durum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Ödendi"
+            android:textColor="@color/gray_light"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Fatura Başlığı"
-            android:textSize="16sp"
             android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvAmount"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvAmount"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0,00 ₺"
-            android:textSize="16sp"
             android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tvTitle"/>
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/tvDueDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="01 Oca 2025"
+            android:textColor="@color/gray_light"
             android:textSize="14sp"
-            android:textColor="#666666"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="4dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
         <!-- Yeni eklenen kategori alanı -->
 

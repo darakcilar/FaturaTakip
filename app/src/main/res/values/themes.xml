@@ -12,7 +12,7 @@
     <style name="Widget.MyApp.Button" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">16dp</item>
         <item name="backgroundTint">@color/colorSecondary</item>
-        <item name="android:textColor">@color/colorOnSecondary</item>
+        <item name="android:textColor">@color/colorOnPrimary</item>
         <item name="android:insetLeft">16dp</item>
         <item name="android:insetRight">16dp</item>
     </style>
@@ -20,7 +20,7 @@
     <!-- Özel FAB -->
     <style name="Widget.MyApp.FAB" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="cornerSize">16dp</item>
-        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="backgroundTint">@color/colorSecondary</item>
         <item name="rippleColor">?attr/colorOnPrimary</item>
     </style>
 </resources>

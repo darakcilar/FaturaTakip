@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Fatura Başlığı"
-        app:boxStrokeColor="@color/colorPrimary"
+        app:boxStrokeColor="@color/colorSecondary"
         app:hintTextColor="?attr/colorOnSurface">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="Tutar (örn. 125.50)"
-        app:boxStrokeColor="@color/colorPrimary"
+        app:boxStrokeColor="@color/colorSecondary"
         app:hintTextColor="?attr/colorOnSurface">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -43,19 +43,20 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Son Ödeme Tarihi -->
+
+    <!-- Kategori -->
     <TextView
         android:id="@+id/tvDueDate"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:padding="12dp"
         android:background="?attr/selectableItemBackground"
+        android:padding="12dp"
         android:text="Son Ödeme Tarihi"
-        android:textColor="@color/colorPrimary"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:textColor="@color/colorSecondary" />
 
-    <!-- Kategori -->
     <TextView
         android:id="@+id/tvCategoryLabel"
         android:layout_width="match_parent"
@@ -71,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:spinnerMode="dropdown"
-        android:backgroundTint="?attr/colorPrimary"
+        android:backgroundTint="@color/colorSecondary"
         android:popupBackground="@color/colorSurface"/>
 
 </LinearLayout>
