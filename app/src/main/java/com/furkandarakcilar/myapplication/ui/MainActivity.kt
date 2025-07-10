@@ -1,12 +1,11 @@
 package com.furkandarakcilar.myapplication.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
         applyWindowInsets()
         setupAdapter()
         setupFab()
-        setupLogout()
+        setupMenuButton()
 
         viewModel.allInvoices.observe(this) { list ->
             rawList = list
@@ -131,10 +130,10 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
             }
     }
 
-    private fun setupLogout() {
+    private fun setupMenuButton() {
         findViewById<Button>(R.id.buttonBack).setOnClickListener {
-            Prefs.setLoggedOut(this)
-            goLogin()
+            val intent = Intent(this, AnalysisActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -159,6 +158,18 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
         val count = adapter.getSelectedItems().size
         if (count == 0) actionMode?.finish()
         else actionMode?.title = "$count seçili"
+    }
+
+    @SuppressLint("GestureBackNavigation")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        // 1) Seçim modundaysa önce onu kapat
+        actionMode?.let {
+            it.finish()
+            return
+        }
+        // 2) Normalde Login ekranına yönlendir
+        goLogin()
     }
 
     private fun goLogin() {

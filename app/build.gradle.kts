@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+    implementation("com.github.lecho:hellocharts-library:1.5.8@aar")
+    implementation("com.jjoe64:graphview:4.2.2")
 
     implementation("com.google.android.material:material:1.10.0")
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.7.10")
@@ -58,7 +60,6 @@ dependencies {
     // Coroutine
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
