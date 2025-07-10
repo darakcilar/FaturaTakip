@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -16,7 +17,6 @@ import androidx.appcompat.view.ActionMode
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.furkandarakcilar.myapplication.R
@@ -43,9 +43,6 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
         super.onCreate(savedInstanceState)
 
 
-        // Yalnızca dikey mod
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
         if (!Prefs.isLoggedIn(this)) {
             goLogin()
             return
@@ -53,7 +50,6 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
 
         setContentView(R.layout.activity_main)
         setupToolbar()
-        hideSystemUI()
         applyWindowInsets()
         setupAdapter()
         setupFab()
@@ -163,14 +159,6 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
         val count = adapter.getSelectedItems().size
         if (count == 0) actionMode?.finish()
         else actionMode?.title = "$count seçili"
-    }
-
-    private fun hideSystemUI() {
-        WindowInsetsControllerCompat(window, window.decorView).apply {
-            hide(WindowInsetsCompat.Type.systemBars())
-            systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
     }
 
     private fun goLogin() {

@@ -6,6 +6,10 @@
         <item name="android:colorBackground">@color/colorBackground</item>
         <item name="materialButtonStyle">@style/Widget.MyApp.Button</item>
         <item name="floatingActionButtonStyle">@style/Widget.MyApp.FAB</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/colorSecondary</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
     </style>
 
     <!-- Düz Dolgu Buton -->

@@ -10,7 +10,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import com.furkandarakcilar.myapplication.R
 import java.text.SimpleDateFormat
 import java.util.*
