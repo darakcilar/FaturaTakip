@@ -76,13 +76,6 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
         return true
     }
 
-    // Eğer onOptionsItemSelected kullanmak isterseniz:
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        if (item.itemId == android.R.id.home) {
-            goLogin()
-            true
-        } else super.onOptionsItemSelected(item)
-
     private fun applyWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { v, insets ->
             val sys = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -212,4 +205,69 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
         adapter.clearSelection()
         actionMode = null
     }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_sort, menu)
+
+        // Sort submenu’sini alıp tekillik ayarla
+        menu.findItem(R.id.menu_sort).subMenu
+            ?.setGroupCheckable(R.id.group_sort, true, true)
+
+        // Filter submenu’sini alıp tekillik ayarla
+        menu.findItem(R.id.menu_filter).subMenu
+            ?.setGroupCheckable(R.id.group_filter, true, true)
+
+        // İstersen başlangıçta default işaretle:
+        menu.findItem(R.id.action_sort_due_asc).isChecked = true
+        menu.findItem(R.id.action_filter_all).isChecked  = true
+
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            // --- SIRALAMA SEÇENEKLERİ ---
+            R.id.action_sort_due_asc -> {
+                sortType = SortType.DUE_ASC
+                item.isChecked = true
+            }
+            R.id.action_sort_due_desc -> {
+                sortType = SortType.DUE_DESC
+                item.isChecked = true
+            }
+            R.id.action_sort_amount_asc -> {
+                sortType = SortType.AMOUNT_ASC
+                item.isChecked = true
+            }
+            R.id.action_sort_amount_desc -> {
+                sortType = SortType.AMOUNT_DESC
+                item.isChecked = true
+            }
+
+            // --- FİLTRE SEÇENEKLERİ ---
+            R.id.action_filter_all -> {
+                filterType = FilterType.ALL
+                item.isChecked = true
+            }
+            R.id.action_filter_paid -> {
+                filterType = FilterType.PAID
+                item.isChecked = true
+            }
+            R.id.action_filter_unpaid -> {
+                filterType = FilterType.UNPAID
+                item.isChecked = true
+            }
+            R.id.action_filter_overdue -> {
+                filterType = FilterType.OVERDUE
+                item.isChecked = true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+
+        // Seçime göre veriyi güncelle
+        applyFilterAndSort()
+        return true
+    }
+
+
 }
