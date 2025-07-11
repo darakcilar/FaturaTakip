@@ -14,12 +14,10 @@ import com.furkandarakcilar.myapplication.util.Prefs
 class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Gece modunu kapat
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register_activity)
 
-        // Sistem ActionBar’dan Up okunu göster
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val etUser    = findViewById<EditText>(R.id.etNewUser)
@@ -36,6 +34,17 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Kullanıcı ve şifre boş olamaz!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            if (user.length < 4 || user.length > 16) {
+                Toast.makeText(this, "Kullanıcı adı 4-16 karakter arası olmalı!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (pass.length < 4) {
+                Toast.makeText(this, "Şifre en az 4 karakter olmalı!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             if (pass != pass2) {
                 Toast.makeText(this, "Şifreler uyuşmuyor!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -51,17 +60,18 @@ class RegisterActivity : AppCompatActivity() {
             goLogin()
         }
     }
-    // ActionBar Up okuna tıklayınca
+
     override fun onSupportNavigateUp(): Boolean {
         goLogin()
         return true
     }
-    // Cihazın geri tuşuna basıldığında da
+
     @SuppressLint("GestureBackNavigation")
     override fun onBackPressed() {
         super.onBackPressed()
         goLogin()
     }
+
     private fun goLogin() {
         startActivity(Intent(this, LoginActivity::class.java))
         overridePendingTransition(

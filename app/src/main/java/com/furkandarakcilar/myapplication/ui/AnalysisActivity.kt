@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.furkandarakcilar.myapplication.R
@@ -95,9 +96,8 @@ class AnalysisActivity : AppCompatActivity() {
         tvPaid.text   = "Ödenmiş: ₺%,.2f".format(totalPaid)
         tvUnpaid.text = "Ödenmemiş: ₺%,.2f".format(totalUnpaid)
     }
-
     private fun drawPaidUnpaidChart(graph: GraphView, invoices: List<Invoice>) {
-        val paid   = invoices.filter { it.isPaid  }.sumOf { it.amount.toDouble() }
+        val paid = invoices.filter { it.isPaid }.sumOf { it.amount.toDouble() }
         val unpaid = invoices.filter { !it.isPaid }.sumOf { it.amount.toDouble() }
 
         val series = BarGraphSeries(arrayOf(
@@ -106,105 +106,129 @@ class AnalysisActivity : AppCompatActivity() {
         )).apply {
             spacing = 50
             isDrawValuesOnTop = true
+            setOnDataPointTapListener { _, dataPoint ->
+                Toast.makeText(
+                    graph.context,
+                    if (dataPoint.x == 0.0) "Ödenen: ${dataPoint.y.toInt()}" else "Ödenmeyen: ${dataPoint.y.toInt()}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
-        graph.removeAllSeries()
-        graph.addSeries(series)
-
-        val labels = arrayOf("Ödenen", "Ödenmeyen")
-        graph.gridLabelRenderer.apply {
-            isHorizontalLabelsVisible = true
-            isVerticalLabelsVisible   = true
-            numHorizontalLabels = labels.size
-            labelFormatter = StaticLabelsFormatter(graph).apply {
-                setHorizontalLabels(labels)
+        graph.apply {
+            removeAllSeries()
+            addSeries(series)
+            gridLabelRenderer.apply {
+                isHorizontalLabelsVisible = true
+                isVerticalLabelsVisible = true
+                numHorizontalLabels = 2
+                labelFormatter = StaticLabelsFormatter(graph).apply {
+                    setHorizontalLabels(arrayOf("Ödenen", "Ödenmeyen"))
+                }
             }
         }
     }
 
     private fun drawCategoryChart(graph: GraphView, invoices: List<Invoice>) {
-        val legendCategory   = findViewById<LinearLayout>(R.id.legendCategory)
-        val grouped = invoices
-            .groupBy { it.category }
-            .mapValues { it.value.sumOf { inv -> inv.amount.toDouble() } }
+        val legendCategory = findViewById<LinearLayout>(R.id.legendCategory)
 
-        // 2) Renk paleti
-        val palette = listOf(
-            Color.parseColor("#F44336"),
-            Color.parseColor("#E91E63"),
-            Color.parseColor("#9C27B0"),
-            Color.parseColor("#3F51B5"),
-            Color.parseColor("#03A9F4"),
-            Color.parseColor("#009688")
-        )
-
-        // 3) DataPoint’leri (0.5, 1.5, …) oluştur
-        val points = grouped.entries
-            .mapIndexed { idx, (_, total) -> DataPoint(idx + 0.5, total) }
-            .toTypedArray()
-
-        val count = points.size
-        val maxY  = (grouped.values.maxOrNull() ?: 0.0) * 1.2
-
-        graph.removeAllSeries()
-
-        // 4) Yalnızca yatay grid çizgileri, renk set et
-        graph.gridLabelRenderer.apply {
-            gridStyle = GridLabelRenderer.GridStyle.HORIZONTAL
-            setGridColor(Color.BLACK)
-            setHorizontalLabelsVisible(false)
-            setVerticalLabelsVisible(true)
-            numVerticalLabels = 5
+        val grouped = invoices.groupBy { it.category }.mapValues { group ->
+            group.value.sumOf { it.amount.toDouble() }
         }
 
-        // 5) Sol eksen çizgisi (X = 0), kalınlık 4px
-        LineGraphSeries(arrayOf(
-            DataPoint(0.0,   0.0),
-            DataPoint(0.0, maxY)
-        )).apply {
-            color     = Color.BLACK
-            thickness = 4
-        }.also { graph.addSeries(it) }
+        val palette = generateDynamicPalette(grouped.size)
 
+        val points = grouped.entries.mapIndexed { index, entry ->
+            DataPoint(index + 0.5, entry.value)
+        }.toTypedArray()
 
-        // 7) Bar serisi – her bar farklı renk
-        BarGraphSeries(points).apply {
-            spacing           = 20
-            isDrawValuesOnTop = true
-            setValueDependentColor { p ->
-                palette[p.x.toInt() % palette.size]
+        val maxY = (grouped.values.maxOrNull() ?: 0.0) * 1.2
+
+        graph.apply {
+            removeAllSeries()
+
+            addSeries(LineGraphSeries(arrayOf(
+                DataPoint(0.0, 0.0),
+                DataPoint(0.0, maxY)
+            )).apply {
+                color = Color.BLACK
+                thickness = 4
+            })
+
+            addSeries(BarGraphSeries(points).apply {
+                spacing = 20
+                isDrawValuesOnTop = true
+                setValueDependentColor { dp ->
+                    palette[dp.x.toInt() % palette.size]
+                }
+                setOnDataPointTapListener { _, dataPoint ->
+                    val category = grouped.keys.elementAt(dataPoint.x.toInt())
+                    Toast.makeText(
+                        graph.context,
+                        "$category: ${dataPoint.y.toInt()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+
+            gridLabelRenderer.apply {
+                gridStyle = GridLabelRenderer.GridStyle.HORIZONTAL
+                setGridColor(Color.BLACK)
+                setHorizontalLabelsVisible(false)
+                setVerticalLabelsVisible(true)
+                numVerticalLabels = 5
             }
-        }.also { graph.addSeries(it) }
 
-        // 8) Viewport sınırları
-        graph.viewport.apply {
-            isXAxisBoundsManual = true
-            setMinX(0.0);    setMaxX(count.toDouble())
-            isYAxisBoundsManual = true
-            setMinY(0.0);    setMaxY(maxY)
+            viewport.apply {
+                isXAxisBoundsManual = true
+                setMinX(0.0)
+                setMaxX(points.size.toDouble())
+                isYAxisBoundsManual = true
+                setMinY(0.0)
+                setMaxY(maxY)
+            }
         }
 
-        // 9) Manuel legendCategory doldur
         legendCategory.removeAllViews()
-        grouped.keys.forEachIndexed { idx, cat ->
-            // renk kutucuğu
-            val sizePx = (16 * resources.displayMetrics.density).toInt()
-            View(this).apply {
-                layoutParams = LinearLayout.LayoutParams(sizePx, sizePx)
-                    .also { it.setMargins(0, 0, sizePx/2, 0) }
-                setBackgroundColor(palette[idx % palette.size])
-            }.also { legendCategory.addView(it) }
+        grouped.keys.forEachIndexed { index, category ->
+            val colorView = View(this).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    (16 * resources.displayMetrics.density).toInt(),
+                    (16 * resources.displayMetrics.density).toInt()
+                ).apply { setMargins(0, 0, 8, 0) }
+                setBackgroundColor(palette[index % palette.size])
+            }
 
-            // kategori etiketi
-            TextView(this).apply {
-                text             = cat
+            val labelView = TextView(this).apply {
+                text = category
                 setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
                 setTextColor(Color.DKGRAY)
                 layoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
-                ).also { it.setMargins(0, 0, 16, 0) }
-            }.also { legendCategory.addView(it) }
+                ).apply { setMargins(0, 0, 16, 0) }
+            }
+
+            legendCategory.addView(colorView)
+            legendCategory.addView(labelView)
         }
     }
+
+    private fun generateDynamicPalette(size: Int): List<Int> {
+        val baseColors = listOf(
+            Color.parseColor("#F44336"),
+            Color.parseColor("#E91E63"),
+            Color.parseColor("#9C27B0"),
+            Color.parseColor("#3F51B5"),
+            Color.parseColor("#03A9F4"),
+            Color.parseColor("#009688"),
+            Color.parseColor("#4CAF50"),
+            Color.parseColor("#FF9800"),
+            Color.parseColor("#795548"),
+            Color.parseColor("#607D8B")
+        )
+        return List(size) { index -> baseColors[index % baseColors.size] }
+    }
+
+
 }
