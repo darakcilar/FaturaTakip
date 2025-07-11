@@ -47,7 +47,7 @@ dependencies {
     implementation ("androidx.appcompat:appcompat:1.5.1")
     implementation ("com.google.android.material:material:1.7.0")
 
-    val roomVersion = "2.4.3"
+    val roomVersion = "2.5.2"
 
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
