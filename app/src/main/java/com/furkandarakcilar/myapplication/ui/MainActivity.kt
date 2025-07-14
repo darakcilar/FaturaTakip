@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Gece modunu kapat
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
 
@@ -208,15 +207,11 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_sort, menu)
 
-        // Sort submenu’sini alıp tekillik ayarla
         menu.findItem(R.id.menu_sort).subMenu
             ?.setGroupCheckable(R.id.group_sort, true, true)
-
-        // Filter submenu’sini alıp tekillik ayarla
         menu.findItem(R.id.menu_filter).subMenu
             ?.setGroupCheckable(R.id.group_filter, true, true)
 
-        // İstersen başlangıçta default işaretle:
         menu.findItem(R.id.action_sort_due_asc).isChecked = true
         menu.findItem(R.id.action_filter_all).isChecked  = true
 
@@ -264,7 +259,6 @@ class MainActivity : AppCompatActivity(), ActionMode.Callback {
             else -> return super.onOptionsItemSelected(item)
         }
 
-        // Seçime göre veriyi güncelle
         applyFilterAndSort()
         return true
     }

@@ -113,12 +113,10 @@ class InvoiceAdapter(
 
 
         fun bind(invoice: Invoice, activated: Boolean) {
-            // 1) Mevcut alanları doldur
             tvTitle.text   = invoice.title
             tvAmount.text  = String.format(Locale.getDefault(), "%.2f ₺", invoice.amount)
             tvDueDate.text = dateFmt.format(Date(invoice.dueDate))
 
-            // 2) Kart arka plan rengini seç
             val filterColorRes = when {
                 invoice.isPaid                               -> R.color.bg_paid_green
                 invoice.dueDate < System.currentTimeMillis() -> R.color.bg_overdue_orange
@@ -129,11 +127,8 @@ class InvoiceAdapter(
                 ContextCompat.getColor(itemView.context, bgColorRes)
             )
 
-            // 3) Durum metnini ata
             val statusText = if (invoice.isPaid) "Ödendi" else "Ödenmedi"
             Durum.text = statusText
-
-            // 4) Durum yazısını filtre rengine uyacak şekilde renklendir (isteğe bağlı)
             val statusTextColorRes = when {
                 invoice.isPaid                               -> R.color.gray_light
                 invoice.dueDate < System.currentTimeMillis() -> R.color.Redd
@@ -141,7 +136,6 @@ class InvoiceAdapter(
             }
             Durum.setTextColor(ContextCompat.getColor(itemView.context, statusTextColorRes))
 
-            // 5) Tıklama dinleyicileri
             itemView.setOnClickListener    { onClick(invoice) }
             itemView.setOnLongClickListener { onLongClick(invoice) }
         }

@@ -18,7 +18,6 @@ abstract class InvoiceDatabase : RoomDatabase() {
     companion object {
         @Volatile private var INSTANCE: InvoiceDatabase? = null
 
-        // 1→2 migration: owner sütunu eklenmişti
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL(
@@ -28,7 +27,6 @@ abstract class InvoiceDatabase : RoomDatabase() {
             }
         }
 
-        // 2→3 migration: category sütununu ekliyoruz
         private val MIGRATION_2_3 = object : Migration(2, 3) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL(
@@ -37,7 +35,6 @@ abstract class InvoiceDatabase : RoomDatabase() {
                 )
             }
         }
-        // 3→4 migration: isPaid sütunu
         private val MIGRATION_3_4 = object: Migration(3,4) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL(
