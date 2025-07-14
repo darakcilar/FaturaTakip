@@ -1,4 +1,3 @@
-// SortType.kt
 package com.furkandarakcilar.myapplication.ui
 
 enum class SortType {
