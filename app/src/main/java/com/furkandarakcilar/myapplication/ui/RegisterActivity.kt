@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.furkandarakcilar.myapplication.R
+import com.furkandarakcilar.faturatakip.R
 import com.furkandarakcilar.myapplication.util.Prefs
 
 class RegisterActivity : AppCompatActivity() {

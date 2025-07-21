@@ -10,7 +10,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import com.furkandarakcilar.myapplication.R
+import com.furkandarakcilar.faturatakip.R
 import java.text.SimpleDateFormat
 import java.util.*
 

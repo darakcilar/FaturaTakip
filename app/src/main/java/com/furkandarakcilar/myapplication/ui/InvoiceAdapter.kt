@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.furkandarakcilar.myapplication.R
+import com.furkandarakcilar.faturatakip.R
 import com.furkandarakcilar.myapplication.data.Invoice
 import com.google.android.material.card.MaterialCardView
 import java.text.SimpleDateFormat

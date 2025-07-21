@@ -17,7 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.furkandarakcilar.myapplication.R
+import com.furkandarakcilar.faturatakip.R
 import com.furkandarakcilar.myapplication.data.Invoice
 import com.furkandarakcilar.myapplication.util.Prefs
 import com.google.android.material.appbar.MaterialToolbar

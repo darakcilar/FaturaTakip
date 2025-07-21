@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.furkandarakcilar.myapplication"
+    namespace = "com.furkandarakcilar.faturatakip"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.furkandarakcilar.myapplication"
+        applicationId = "com.furkandarakcilar.faturatakip"
         minSdk = 21
         targetSdk = 36
         versionCode = 1

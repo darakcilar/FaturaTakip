@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.furkandarakcilar.myapplication.R
+import com.furkandarakcilar.faturatakip.R
 import com.furkandarakcilar.myapplication.util.Prefs
 
 class LoginActivity : AppCompatActivity() {

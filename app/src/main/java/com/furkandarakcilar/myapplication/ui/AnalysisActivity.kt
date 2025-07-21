@@ -13,7 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.furkandarakcilar.myapplication.R
+import com.furkandarakcilar.faturatakip.R
 import com.furkandarakcilar.myapplication.data.Invoice
 import com.google.android.material.appbar.MaterialToolbar
 import com.jjoe64.graphview.DefaultLabelFormatter
