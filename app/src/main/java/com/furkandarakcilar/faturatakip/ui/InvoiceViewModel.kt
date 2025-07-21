@@ -1,12 +1,12 @@
-package com.furkandarakcilar.myapplication.ui
+package com.furkandarakcilar.faturatakip.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.furkandarakcilar.myapplication.data.Invoice
-import com.furkandarakcilar.myapplication.data.InvoiceDatabase
-import com.furkandarakcilar.myapplication.data.InvoiceRepository
+import com.furkandarakcilar.faturatakip.data.Invoice
+import com.furkandarakcilar.faturatakip.data.InvoiceDatabase
+import com.furkandarakcilar.faturatakip.data.InvoiceRepository
 import com.furkandarakcilar.myapplication.util.Prefs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

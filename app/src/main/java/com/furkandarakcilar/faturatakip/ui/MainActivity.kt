@@ -1,4 +1,4 @@
-package com.furkandarakcilar.myapplication.ui
+package com.furkandarakcilar.faturatakip.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -18,12 +18,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.furkandarakcilar.faturatakip.R
-import com.furkandarakcilar.myapplication.data.Invoice
+import com.furkandarakcilar.faturatakip.data.Invoice
 import com.furkandarakcilar.myapplication.util.Prefs
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity(), ActionMode.Callback {
+class MainActivity : androidx.appcompat.app.AppCompatActivity(), ActionMode.Callback {
 
     private val viewModel: InvoiceViewModel by viewModels()
     private lateinit var adapter: InvoiceAdapter

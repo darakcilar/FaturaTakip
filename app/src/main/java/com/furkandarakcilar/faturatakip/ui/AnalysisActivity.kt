@@ -1,4 +1,4 @@
-package com.furkandarakcilar.myapplication.ui
+package com.furkandarakcilar.faturatakip.ui
 
 import android.R.attr.numColumns
 import android.annotation.SuppressLint
@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.furkandarakcilar.faturatakip.R
-import com.furkandarakcilar.myapplication.data.Invoice
+import com.furkandarakcilar.faturatakip.data.Invoice
 import com.google.android.material.appbar.MaterialToolbar
 import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView

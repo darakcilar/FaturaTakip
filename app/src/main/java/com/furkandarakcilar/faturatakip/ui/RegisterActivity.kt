@@ -1,4 +1,4 @@
-package com.furkandarakcilar.myapplication.ui
+package com.furkandarakcilar.faturatakip.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,12 +6,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.furkandarakcilar.faturatakip.R
 import com.furkandarakcilar.myapplication.util.Prefs
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : androidx.appcompat.app.AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

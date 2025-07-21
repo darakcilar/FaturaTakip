@@ -1,4 +1,4 @@
-package com.furkandarakcilar.myapplication.ui
+package com.furkandarakcilar.faturatakip.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.furkandarakcilar.faturatakip.R
-import com.furkandarakcilar.myapplication.data.Invoice
+import com.furkandarakcilar.faturatakip.data.Invoice
 import com.google.android.material.card.MaterialCardView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -17,7 +17,7 @@ import java.util.*
 class InvoiceAdapter(
     private val onClick: (Invoice) -> Unit,
     private val onLongClick: (Invoice) -> Boolean
-) : ListAdapter<ListItem, RecyclerView.ViewHolder>(DiffCallback()) {
+) : androidx.recyclerview.widget.ListAdapter<ListItem, RecyclerView.ViewHolder>(DiffCallback()) {
 
     companion object {
         private const val TYPE_HEADER = 0

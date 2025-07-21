@@ -1,4 +1,4 @@
-package com.furkandarakcilar.myapplication.ui
+package com.furkandarakcilar.faturatakip.ui
 
 import android.app.DatePickerDialog
 import android.content.Context

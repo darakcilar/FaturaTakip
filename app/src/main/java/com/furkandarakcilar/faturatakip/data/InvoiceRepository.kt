@@ -1,4 +1,4 @@
-package com.furkandarakcilar.myapplication.data
+package com.furkandarakcilar.faturatakip.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData

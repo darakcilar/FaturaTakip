@@ -1,4 +1,4 @@
-package com.furkandarakcilar.myapplication.ui
+package com.furkandarakcilar.faturatakip.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.furkandarakcilar.faturatakip.R
 import com.furkandarakcilar.myapplication.util.Prefs
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : androidx.appcompat.app.AppCompatActivity() {
 
     private lateinit var etUser: EditText
     private lateinit var etPass: EditText

@@ -1,4 +1,4 @@
-package com.furkandarakcilar.myapplication.data
+package com.furkandarakcilar.faturatakip.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
