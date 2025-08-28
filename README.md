@@ -1,6 +1,6 @@
 # Fatura Takip Uygulaması
 
-Fatura Takip, tüm faturalarınızı tek bir ekranda toplar ve ödeme tarihlerinizi kaçırmanızı engeller. Elektrik, su, telefon veya doğalgaz gibi düzenli ödemeleri kolayca ekleyip yönetebilirsiniz. Şeffaf arayüzü sayesinde hangi faturaya ne kadar ve ne zaman ödeme yapacağınızı anında görürsünüzkonlarını çeker ve Material Components tabanlı modern bir arayüz sunar.
+Fatura Takip, tüm faturalarınızı tek bir ekranda toplar ve ödeme tarihlerinizi kaçırmanızı engeller. Elektrik, su, telefon veya doğalgaz gibi düzenli ödemeleri kolayca ekleyip yönetebilirsiniz. Şeffaf arayüzü sayesinde hangi faturaya ne kadar ve ne zaman ödeme yapacağınızı anında görürsünü.
 
 ---
 
