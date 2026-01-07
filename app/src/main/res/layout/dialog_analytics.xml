@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fatura Analizi"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="5">
+
+        <TextView android:text="Toplam Fatura Sayısı:" style="@style/AnalyticsLabel"/>
+        <TextView android:id="@+id/total_count" tools:text="15" style="@style/AnalyticsValue"/>
+
+        <TextView android:text="Ödenen Fatura Sayısı:" style="@style/AnalyticsLabel"/>
+        <TextView android:id="@+id/paid_count" tools:text="10" style="@style/AnalyticsValue.Paid"/>
+
+        <TextView android:text="Ödenecek Fatura Sayısı:" style="@style/AnalyticsLabel"/>
+        <TextView android:id="@+id/unpaid_count" tools:text="5" style="@style/AnalyticsValue.Unpaid"/>
+
+        <TextView android:text="Toplam Fatura Tutarı:" style="@style/AnalyticsLabel"/>
+        <TextView android:id="@+id/total_amount" tools:text="₺3,500.00" style="@style/AnalyticsValue"/>
+
+        <TextView android:text="Ödenen Toplam Tutar:" style="@style/AnalyticsLabel"/>
+        <TextView android:id="@+id/paid_amount" tools:text="₺2,000.00" style="@style/AnalyticsValue.Paid"/>
+    </GridLayout>
+
+    <Button
+        android:id="@+id/close_analytics_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kapat"
+        android:layout_marginTop="24dp"/>
+
+</LinearLayout>

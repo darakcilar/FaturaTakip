@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Kenarlık (çerçeve) ayarları -->
+    <stroke
+        android:width="2dp"
+        android:color="@android:color/white" />
+
+    <!-- Köşeleri yuvarlatma -->
+    <corners android:radius="16dp" />
+
+    <!-- İç rengi şeffaf yap -->
+    <solid android:color="@android:color/transparent" />
+
+</shape>

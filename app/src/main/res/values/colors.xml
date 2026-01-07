@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="Redd">#F60404</color>
-    <color name="invoice_default_bg">#FFFFFFFF</color>
-    <color name="invoice_selected_bg">#C1545F</color>
-    <color name="gray_light">#858383</color>
-    <color name="bg_paid_green">#9576FF03</color>
-    <color name="bg_overdue_orange">#7FFF9100</color>
-    <color name="bg_paid_white">#FFFFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
 
+    <color name="app_background">#F8FAFC</color>
 
-    <color name="colorPrimary">#1E883E</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorSecondary">#028090</color>
-    <color name="colorBackground">#F5F5F5</color>
-    <color name="colorSurface">#FFFFFF</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorOnSecondary">#000000</color>
-    <color name="colorOnSurface">#000000</color>
+    <color name="paid_green_bg">#D1FAE5</color>
+    <color name="paid_green_text">#065F46</color>
+    <color name="paid_green_card_bg">#F0FDF4</color>
 
+    <color name="unpaid_yellow_bg">#FEF3C7</color>
+    <color name="unpaid_yellow_text">#92400E</color>
+
+    <color name="overdue_red_bg">#FEE2E2</color>
+    <color name="overdue_red_text">#991B1B</color>
+    <color name="overdue_red_card_bg">#FEF2F2</color>
 </resources>

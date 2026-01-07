@@ -2,20 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="Fatura Takip"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApp">
+        android:theme="@style/Theme.FaturaTakipUygulaması"
+        tools:targetApi="31">
         <activity
-            android:name=".ui.LoginActivity"
-            android:theme="@style/Theme.MyApp"
+            android:name=".ui.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,22 +32,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"
-            android:theme="@style/Theme.MyApp"
+            android:name=".ui.BarcodeScanActivity"
             android:screenOrientation="portrait"
-            android:exported="false">
-        </activity>
-        <activity
-            android:name=".ui.RegisterActivity"
-            android:theme="@style/Theme.MyApp"
-            android:exported="false"
-            android:screenOrientation="portrait">
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
 
-    </activity>
+        <!-- Metin Tarama (OCR) Aktivitesi -->
         <activity
-            android:name=".ui.AnalysisActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:name=".ui.TextScanActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
+
+
     </application>
 
 </manifest>

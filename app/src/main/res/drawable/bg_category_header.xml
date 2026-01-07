@@ -1,5 +1,11 @@
-<!-- res/drawable/bg_category_header.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="?attr/colorSecondary" />
-    <corners android:radius="8dp" />
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Arka plan rengi (bu renk daha sonra kod içinde değiştirilebilir) -->
+    <solid android:color="#E0E0E0" />
+
+    <!-- Köşeleri yuvarlatma -->
+    <corners android:radius="16dp" />
+
 </shape>

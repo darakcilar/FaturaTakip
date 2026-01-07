@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Fatura Takip"
+rootProject.name = "app"
 include(":app")

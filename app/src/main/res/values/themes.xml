@@ -1,30 +1,39 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.MyApp" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
-        <item name="materialButtonStyle">@style/Widget.MyApp.Button</item>
-        <item name="floatingActionButtonStyle">@style/Widget.MyApp.FAB</item>
-        <item name="android:navigationBarColor">@color/black</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/colorSecondary</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+    <!-- Base application theme. -->
+    <style name="Theme.FaturaTakipUygulaması" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <!-- Düz Dolgu Buton -->
-    <style name="Widget.MyApp.Button" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">16dp</item>
-        <item name="backgroundTint">@color/colorSecondary</item>
-        <item name="android:textColor">@color/colorOnPrimary</item>
-        <item name="android:insetLeft">16dp</item>
-        <item name="android:insetRight">16dp</item>
+    <style name="Theme.App" parent="Base.Theme.App" />
+    <!-- Analiz ve Kredi Dialog Stilleri -->
+    <style name="AnalyticsLabel" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_gravity">fill_horizontal</item>
+        <item name="android:paddingVertical" tools:ignore="NewApi">4dp</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
-    <!-- Özel FAB -->
-    <style name="Widget.MyApp.FAB" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="cornerSize">16dp</item>
-        <item name="backgroundTint">@color/colorSecondary</item>
-        <item name="rippleColor">?attr/colorOnPrimary</item>
+    <style name="AnalyticsValue" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_gravity">end</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="AnalyticsValue.Paid">
+        <item name="android:textColor">@color/paid_green_text</item>
+    </style>
+
+    <style name="AnalyticsValue.Unpaid">
+        <item name="android:textColor">@color/overdue_red_text</item>
+    </style>
+
+    <!-- Liste Elemanı Buton Stili -->
+    <style name="Widget.App.ImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:padding">8dp</item>
     </style>
 </resources>
