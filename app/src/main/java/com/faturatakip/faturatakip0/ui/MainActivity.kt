@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -33,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var invoiceAdapter: InvoiceAdapter
 
-
     private var invoicesToExport: List<Invoice> = emptyList()
     private var exportTitle: String = "Fatura Raporu"
 
@@ -53,39 +53,39 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private val cameraPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (isGranted) {
+            startScanner()
+        } else {
+            Toast.makeText(this, "Kamera izni olmadan fatura tarayamazsınız.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-    private val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-        val cameraGranted = permissions[Manifest.permission.CAMERA] ?: false
-        val notificationGranted = permissions[Manifest.permission.POST_NOTIFICATIONS] ?: true
-
-        if (cameraGranted) startScanner()
-        if (notificationGranted) setupReminderWorker()
+    private val notificationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ ->
+        setupReminderWorker()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        checkPermissionsAndStartWorkers()
+        checkNotificationPermission()
         setupRecyclerView()
         setupSortSpinner()
         setupEventListeners()
         observeViewModel()
     }
 
-    private fun checkPermissionsAndStartWorkers() {
-        val permissions = mutableListOf<String>()
+    private fun checkNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            permissions.add(Manifest.permission.POST_NOTIFICATIONS)
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.CAMERA)
-        }
-
-        if (permissions.isNotEmpty()) {
-            permissionLauncher.launch(permissions.toTypedArray())
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                setupReminderWorker()
+            }
         } else {
             setupReminderWorker()
         }
@@ -142,7 +142,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupEventListeners() {
         binding.addInvoiceFab.setOnClickListener { showInvoiceDialog(null) }
-        binding.scanBillFab.setOnClickListener { startScanner() }
+        binding.scanBillFab.setOnClickListener {
+            checkCameraPermissionAndScan()
+        }
         binding.analyticsButton.setOnClickListener { AnalyticsDialogFragment().show(supportFragmentManager, "Analiz") }
         binding.loanCalculatorButton.setOnClickListener { LoanCalculatorDialogFragment().show(supportFragmentManager, "Kredi") }
 
@@ -156,6 +158,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkCameraPermissionAndScan() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            startScanner()
+        } else {
+            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+        }
+    }
+
+    private fun startScanner() {
+        scanLauncher.launch(Intent(this, TextScanActivity::class.java))
+    }
+
     private fun showRenameDialog(oldName: String) {
         val input = EditText(this).apply { setText(oldName); setSelection(oldName.length) }
         AlertDialog.Builder(this).setTitle("Kategoriyi Düzenle").setView(input)
@@ -167,10 +181,6 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this).setTitle("Kategoriyi Sil").setMessage("$cat ve tüm içeriği silinsin mi?")
             .setPositiveButton("Sil") { _, _ -> viewModel.deleteByCategory(cat) }
             .setNegativeButton("Vazgeç", null).show()
-    }
-
-    private fun startScanner() {
-        scanLauncher.launch(Intent(this, TextScanActivity::class.java))
     }
 
     private fun observeViewModel() {
