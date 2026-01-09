@@ -68,16 +68,14 @@ Kredi Hesaplma
 
 Analiz
 
-<img src="" width="250">![WhatsApp Image 2026-01-09 at 02 12 41](https://github.com/user-attachments/assets/fef3da42-6202-46d3-9608-2da40250f891)
+<img src="![WhatsApp Image 2026-01-09 at 02 12 41](https://github.com/user-attachments/assets/fef3da42-6202-46d3-9608-2da40250f891)" width="250">
 
 
-<img src="" width="250">![WhatsApp Image 2026-01-09 at 02 12 40 (1)](https://github.com/user-attachments/assets/33dcb1e9-1095-43cd-97c3-fae8bdedcb92)
+<img src="![WhatsApp Image 2026-01-09 at 02 12 40 (1)](https://github.com/user-attachments/assets/33dcb1e9-1095-43cd-97c3-fae8bdedcb92)" width="250">
 
 
-<img src="" width="250">![WhatsApp Image 2026-01-09 at 02 12 40](https://github.com/user-attachments/assets/00701f75-6b53-429c-8374-52df1a01a93b)
+<img src="![WhatsApp Image 2026-01-09 at 02 12 40](https://github.com/user-attachments/assets/00701f75-6b53-429c-8374-52df1a01a93b" width="250">
 
-
-Not: Resim boyutlarını ayarlamak için width="250" değerini değiştirebilirsiniz (Örn: width="300" veya width="50%").
 
 📄 Lisans
 
