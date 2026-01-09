@@ -62,11 +62,10 @@ Projeyi Android Studio ile açın ve Sync Project with Gradle Files butonuna bas
 
 📸 Ekran Görüntüleri
 
-Ana Ekran
+<img width="319" height="665" alt="WhatsApp Image 2026-01-09 at 02 12 41" src="https://github.com/user-attachments/assets/58b968ff-2b96-46a2-935f-1dba08e4f763" />
+<img width="319" height="665" alt="WhatsApp Image 2026-01-09 at 02 12 40 (1)" src="https://github.com/user-attachments/assets/decae9a5-3719-4e2f-89f5-a574ce4ff31c" />
+<img width="319" height="665" alt="WhatsApp Image 2026-01-09 at 02 12 40" src="https://github.com/user-attachments/assets/dec7b2de-3d4b-497b-964e-80a407a9ac9a" />
 
-Kredi Hesaplma
-
-Analiz
 
 
 📄 Lisans
