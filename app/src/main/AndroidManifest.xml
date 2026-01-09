@@ -6,8 +6,11 @@
         android:name="android.hardware.camera"
         android:required="false" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
+    <uses-permission
+    android:name="android.permission.POST_NOTIFICATIONS" />
 
 
     <application
@@ -20,6 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FaturaTakipUygulaması"
         tools:targetApi="31">
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -27,23 +31,14 @@
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.BarcodeScanActivity"
+            android:name=".ui.dialogs.TextScanActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             tools:ignore="LockedOrientationActivity" />
-
-        <!-- Metin Tarama (OCR) Aktivitesi -->
-        <activity
-            android:name=".ui.TextScanActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
-
 
     </application>
 

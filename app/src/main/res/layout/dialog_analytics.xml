@@ -1,47 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="24dp">
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fatura Analizi"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"/>
-
-    <GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="5">
+        android:orientation="vertical"
+        android:padding="24dp">
 
-        <TextView android:text="Toplam Fatura Sayısı:" style="@style/AnalyticsLabel"/>
-        <TextView android:id="@+id/total_count" tools:text="15" style="@style/AnalyticsValue"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Harcama Analizi"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_marginBottom="16dp"/>
 
-        <TextView android:text="Ödenen Fatura Sayısı:" style="@style/AnalyticsLabel"/>
-        <TextView android:id="@+id/paid_count" tools:text="10" style="@style/AnalyticsValue.Paid"/>
+        <com.faturatakip.faturatakip0.ui.views.PieChartView
+            android:id="@+id/customPieChart"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="16dp" />
 
-        <TextView android:text="Ödenecek Fatura Sayısı:" style="@style/AnalyticsLabel"/>
-        <TextView android:id="@+id/unpaid_count" tools:text="5" style="@style/AnalyticsValue.Unpaid"/>
+        <LinearLayout
+            android:id="@+id/legendContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp"
+            android:background="#F9F9F9"
+            android:padding="12dp"/>
 
-        <TextView android:text="Toplam Fatura Tutarı:" style="@style/AnalyticsLabel"/>
-        <TextView android:id="@+id/total_amount" tools:text="₺3,500.00" style="@style/AnalyticsValue"/>
+        <TextView
+            android:text="Özet Bilgiler"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"/>
 
-        <TextView android:text="Ödenen Toplam Tutar:" style="@style/AnalyticsLabel"/>
-        <TextView android:id="@+id/paid_amount" tools:text="₺2,000.00" style="@style/AnalyticsValue.Paid"/>
-    </GridLayout>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2">
 
-    <Button
-        android:id="@+id/close_analytics_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Kapat"
-        android:layout_marginTop="24dp"/>
+            <TextView android:text="Toplam Fatura:" android:padding="4dp"/>
+            <TextView android:id="@+id/totalCount" android:text="0" android:textStyle="bold" android:padding="4dp" android:gravity="end" android:layout_gravity="fill_horizontal"/>
 
-</LinearLayout>
+            <TextView android:text="Toplam Ödenen:" android:padding="4dp"/>
+            <TextView android:id="@+id/paidAmount" android:text="0.00 TL" android:textColor="#4CAF50" android:textStyle="bold" android:padding="4dp" android:gravity="end" android:layout_gravity="fill_horizontal"/>
+
+            <TextView android:text="Toplam Borç:" android:padding="4dp"/>
+            <TextView android:id="@+id/unpaidAmount" android:text="0.00 TL" android:textColor="#F44336" android:textStyle="bold" android:padding="4dp" android:gravity="end" android:layout_gravity="fill_horizontal"/>
+        </GridLayout>
+
+        <Button
+            android:id="@+id/closeAnalyticsBtn"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="16dp"
+            android:text="Kapat" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

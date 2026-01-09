@@ -1,4 +1,4 @@
-package com.faturatakip.app.util
+package com.faturatakip.faturatakip0.util
 
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -17,7 +17,6 @@ fun Long.formatDate(): String {
 
 fun Long.isOverdue(): Boolean {
     val today = Calendar.getInstance()
-    // Saati, dakikayı ve saniyeyi sıfırlayarak sadece gün karşılaştırması yap
     today.set(Calendar.HOUR_OF_DAY, 0)
     today.set(Calendar.MINUTE, 0)
     today.set(Calendar.SECOND, 0)

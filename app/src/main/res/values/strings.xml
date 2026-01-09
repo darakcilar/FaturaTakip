@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Fatura Takip</string>
 
-    <!-- Ana Ekran Metinleri -->
     <string name="calculate_loan">Kredi Hesapla</string>
     <string name="analytics">Analiz</string>
     <string name="filter_all">Tümü</string>
@@ -10,7 +9,6 @@
     <string name="no_invoices_yet">Henüz fatura eklenmemiş.</string>
     <string name="add_invoice">Fatura Ekle</string>
 
-    <!-- Fatura Ekle/Düzenle Dialog -->
     <string name="dialog_title_add">Yeni Fatura Ekle</string>
     <string name="dialog_title_edit">Faturayı Düzenle</string>
     <string name="hint_invoice_name">Fatura Adı (örn: Elektrik)</string>
@@ -20,7 +18,6 @@
     <string name="button_cancel">İptal</string>
     <string name="button_update">Güncelle</string>
 
-    <!-- Analiz Dialog -->
     <string name="analytics_title">Fatura Analizi</string>
     <string name="total_invoices">Toplam Fatura Sayısı</string>
     <string name="paid_invoices">Ödenen Fatura Sayısı</string>
@@ -29,7 +26,6 @@
     <string name="total_paid_amount">Ödenen Toplam Tutar</string>
     <string name="button_close">Kapat</string>
 
-    <!-- Kredi Hesaplama Dialog -->
     <string name="loan_calculator_title">Kredi Hesaplama</string>
     <string name="hint_loan_amount">Kredi Tutarı (₺)</string>
     <string name="hint_annual_interest_rate">Yıllık Faiz Oranı (%)</string>
@@ -39,23 +35,21 @@
     <string name="label_total_repayment">Toplam Geri Ödeme</string>
     <string name="label_total_interest">Toplam Faiz</string>
 
-    <!-- Liste Elemanı ve Diğerleri -->
     <string name="status_paid">Ödendi</string>
     <string name="status_unpaid">Ödenecek</string>
     <string name="status_overdue">Günü Geçti</string>
-    <!-- DÜZELTME: Tarih için yer tutucu (%1$s) eklendi -->
     <string name="due_date_label">Son Tarih: %1$s</string>
     <string name="delete_confirmation">Bu faturayı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</string>
     <string name="button_delete">Sil</string>
     <string name="title_delete_invoice">Faturayı Sil</string>
 
-    <!-- Sıralama Seçenekleri (Spinner için) -->
     <string-array name="sort_options">
         <item>Tarihe Göre (Yeni)</item>
         <item>Tarihe Göre (Eski)</item>
-        <item>Tutara Göre (Azalan)</item>
-        <item>Tutara Göre (Artan)</item>
+        <item>Tutara Göre (Yüksek)</item>
+        <item>Tutara Göre (Düşük)</item>
         <item>İsme Göre (A-Z)</item>
     </string-array>
+
 </resources>
 

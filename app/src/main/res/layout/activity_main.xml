@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/app_background"
     android:fitsSystemWindows="true"
     tools:context=".ui.MainActivity">
 
@@ -24,6 +24,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/app_background"
                 android:paddingStart="16dp"
                 android:paddingEnd="8dp">
 
@@ -48,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/overdue_red_text"
                         android:textSize="12sp"
-                        tools:text="Toplam Ödenecek: ₺1,250.75" />
+                        tools:text="Toplam Ödenecek: ₺0.00" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -63,26 +64,29 @@
                     <ImageButton
                         android:id="@+id/loanCalculatorButton"
                         style="@style/Widget.App.ImageButton"
-                        android:contentDescription="@string/calculate_loan"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="Kredi Hesapla"
                         android:src="@drawable/ic_calculator" />
 
                     <ImageButton
                         android:id="@+id/analyticsButton"
                         style="@style/Widget.App.ImageButton"
-                        android:contentDescription="@string/analytics"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="Analiz"
                         android:src="@drawable/ic_pie_chart" />
-
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- YENİ EKLENDİ: Filtreleme ve Sıralama Kontrol Paneli -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/controlsCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="2dp"
@@ -108,21 +112,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/filter_all" />
+                    android:text="Tümü" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_unpaid"
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/filter_unpaid" />
+                    android:text="Ödenecek" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip_paid"
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/filter_paid" />
+                    android:text="Ödenen" />
             </com.google.android.material.chip.ChipGroup>
 
             <Spinner
@@ -130,56 +134,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/spinner_background"
-                android:minHeight="48dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp" />
-
+                android:minHeight="48dp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/invoiceRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:paddingTop="16dp"
+        android:paddingTop="8dp"
         android:paddingBottom="88dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/controlsCard"
-        tools:listitem="@layout/list_item_invoice" />
+        app:layout_constraintTop_toBottomOf="@+id/controlsCard" />
 
     <TextView
         android:id="@+id/emptyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/ic_folder"
-        android:drawablePadding="16dp"
         android:gravity="center"
-        android:text="@string/no_invoices_yet"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:textColor="?android:attr/textColorSecondary"
+        android:text="Henüz fatura yok"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/controlsCard"
-        tools:visibility="visible" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/scanBillFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="Fatura Okut"
-        android:src="@drawable/ic_scan"
-        app:layout_constraintBottom_toBottomOf="@+id/addInvoiceFab"
-        app:layout_constraintEnd_toStartOf="@+id/addInvoiceFab"
-        app:layout_constraintTop_toTopOf="@+id/addInvoiceFab" />
+        app:layout_constraintTop_toBottomOf="@+id/controlsCard" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addInvoiceFab"
@@ -187,10 +168,18 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:contentDescription="@string/add_invoice"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/scanBillFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_scan"
+        app:layout_constraintBottom_toBottomOf="@+id/addInvoiceFab"
+        app:layout_constraintEnd_toStartOf="@+id/addInvoiceFab"
+        app:layout_constraintTop_toTopOf="@+id/addInvoiceFab" />
 
+</androidx.constraintlayout.widget.ConstraintLayout>

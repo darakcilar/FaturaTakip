@@ -1,4 +1,4 @@
-package com.faturatakip.app.data
+package com.faturatakip.faturatakip0.data
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -13,7 +13,7 @@ data class Invoice(
     val name: String,
     val amount: Double,
     val dueDate: Long,
-    val category: String, // YENİ EKLENDİ: Kategori alanı
+    val category: String = "Diğer",
     val isPaid: Boolean = false
 ) : Parcelable
 

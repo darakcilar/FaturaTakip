@@ -89,7 +89,6 @@
             style="@style/AnalyticsValue.Unpaid" />
     </GridLayout>
 
-    <!-- YENİ EKLENDİ: Taksitleri fatura olarak ekleme bölümü -->
     <LinearLayout
         android:id="@+id/createInstallmentsGroup"
         android:layout_width="match_parent"
@@ -146,7 +145,7 @@
         <Button
             android:id="@+id/create_installments_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:layout_marginTop="16dp"
             android:text="Taksitleri Oluştur ve Kaydet" />
     </LinearLayout>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
     android:layout_marginTop="16dp"
     android:layout_marginBottom="4dp"
     app:cardBackgroundColor="?attr/colorSurface"
@@ -16,8 +17,10 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp">
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <LinearLayout
             android:id="@+id/category_main_layout"
@@ -35,18 +38,18 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
-                tools:text="Elektrik Faturaları" />
+                tools:text="Kategori Adı" />
 
             <TextView
                 android:id="@+id/invoiceCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/bg_category_header"
-                android:backgroundTint="?attr/colorPrimary"
+                android:background="@drawable/bg_status_box"
+                android:backgroundTint="@color/purple_200"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
-                android:textColor="?attr/colorOnPrimary"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 tools:text="3" />
 
@@ -54,11 +57,9 @@
                 android:id="@+id/expandIcon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Genişlet/Daralt"
                 android:src="@drawable/ic_arrow_drop_down" />
         </LinearLayout>
 
-        <!-- YENİ EKLENDİ: Kategori işlem butonları -->
         <LinearLayout
             android:id="@+id/category_actions_layout"
             android:layout_width="match_parent"
@@ -79,23 +80,24 @@
 
             <ImageButton
                 android:id="@+id/categoryPdfButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/Widget.App.ImageButton"
-                android:contentDescription="Kategori Raporu (PDF)"
                 android:src="@drawable/ic_file_text" />
 
             <ImageButton
                 android:id="@+id/categoryEditButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/Widget.App.ImageButton"
-                android:contentDescription="Kategoriyi Yeniden Adlandır"
                 android:src="@drawable/ic_edit" />
 
             <ImageButton
                 android:id="@+id/categoryDeleteButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/Widget.App.ImageButton"
-                android:contentDescription="Kategoriyi Sil"
                 android:src="@drawable/ic_delete" />
         </LinearLayout>
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>
-

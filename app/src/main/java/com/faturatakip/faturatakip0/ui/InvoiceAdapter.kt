@@ -1,4 +1,4 @@
-package com.faturatakip.app.ui
+package com.faturatakip.faturatakip0.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +7,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.faturatakip.app.R
-import com.faturatakip.app.data.Invoice
-import com.faturatakip.app.databinding.ListItemCategoryHeaderBinding
-import com.faturatakip.app.databinding.ListItemInvoiceBinding
-import com.faturatakip.app.util.formatCurrency
-import com.faturatakip.app.util.formatDate
-import com.faturatakip.app.util.isOverdue
+import com.faturatakip.faturatakip0.R
+import com.faturatakip.faturatakip0.data.Invoice
+import com.faturatakip.faturatakip0.databinding.ListItemCategoryHeaderBinding
+import com.faturatakip.faturatakip0.databinding.ListItemInvoiceBinding
+import com.faturatakip.faturatakip0.util.formatCurrency
+import com.faturatakip.faturatakip0.util.formatDate
+import com.faturatakip.faturatakip0.util.isOverdue
 
 sealed class ListItem {
     data class HeaderItem(val category: String, val invoiceCount: Int, var isExpanded: Boolean = false) : ListItem()
@@ -159,4 +159,3 @@ class ListItemDiffCallback : DiffUtil.ItemCallback<ListItem>() {
         return oldItem == newItem
     }
 }
-

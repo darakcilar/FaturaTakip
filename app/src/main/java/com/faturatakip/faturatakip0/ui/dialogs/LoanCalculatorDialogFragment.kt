@@ -1,4 +1,4 @@
-package com.faturatakip.app.ui.dialogs
+package com.faturatakip.faturatakip0.ui.dialogs
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -9,10 +9,10 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.faturatakip.app.data.Invoice
-import com.faturatakip.app.databinding.DialogLoanCalculatorBinding
-import com.faturatakip.app.ui.MainViewModel
-import com.faturatakip.app.util.formatCurrency
+import com.faturatakip.faturatakip0.data.Invoice
+import com.faturatakip.faturatakip0.databinding.DialogLoanCalculatorBinding
+import com.faturatakip.faturatakip0.ui.MainViewModel
+import com.faturatakip.faturatakip0.util.formatCurrency
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.pow
@@ -22,10 +22,8 @@ class LoanCalculatorDialogFragment : DialogFragment() {
     private var _binding: DialogLoanCalculatorBinding? = null
     private val binding get() = _binding!!
 
-    // ViewModel'e erişim
     private val viewModel: MainViewModel by activityViewModels()
 
-    // Hesaplanan değerleri saklamak için değişkenler
     private var monthlyPaymentValue: Double = 0.0
     private var termInMonthsValue: Int = 0
 
@@ -80,7 +78,6 @@ class LoanCalculatorDialogFragment : DialogFragment() {
             val totalRepayment = m * n
             val totalInterest = totalRepayment - p
 
-            // Değerleri daha sonra kullanmak için sakla
             monthlyPaymentValue = m
             termInMonthsValue = n
 

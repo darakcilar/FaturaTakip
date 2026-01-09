@@ -1,4 +1,4 @@
-package com.faturatakip.app
+package com.faturatakip.faturatakip0
 
 import org.junit.Test
 

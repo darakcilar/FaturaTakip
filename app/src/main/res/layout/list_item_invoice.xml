@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
     android:layout_marginBottom="12dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="2dp">
@@ -24,7 +25,7 @@
             app:layout_constraintEnd_toStartOf="@+id/statusText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Uzun Bir Elektrik Faturası Adı Denemesi" />
+            tools:text="Fatura Adı" />
 
         <TextView
             android:id="@+id/invoiceAmount"
@@ -50,21 +51,20 @@
             app:layout_constraintEnd_toStartOf="@+id/button_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/invoiceAmount"
-            app:layout_constraintVertical_bias="1.0"
             tools:text="Son Tarih: 25 Ekim 2025" />
 
         <TextView
             android:id="@+id/statusText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_category_header"
+            android:background="@drawable/bg_status_box"
             android:paddingHorizontal="10dp"
             android:paddingVertical="4dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Günü Geçti" />
+            tools:text="Ödenecek" />
 
         <LinearLayout
             android:id="@+id/button_container"
@@ -76,31 +76,31 @@
 
             <ImageButton
                 android:id="@+id/pdfButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/Widget.App.ImageButton"
-                android:contentDescription="PDF Oluştur"
                 android:src="@drawable/ic_file_text" />
 
             <ImageButton
                 android:id="@+id/editButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/Widget.App.ImageButton"
-                android:contentDescription="Düzenle"
                 android:src="@drawable/ic_edit" />
 
             <ImageButton
                 android:id="@+id/deleteButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/Widget.App.ImageButton"
-                android:contentDescription="Sil"
                 android:src="@drawable/ic_delete" />
 
             <ImageButton
                 android:id="@+id/statusToggleButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 style="@style/Widget.App.ImageButton"
-                android:contentDescription="Durumu Değiştir"
                 android:src="@drawable/ic_check" />
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </com.google.android.material.card.MaterialCardView>
-
