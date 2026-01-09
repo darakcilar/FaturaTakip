@@ -50,7 +50,7 @@ Projeyi yerelinizde çalıştırmak için şu adımları izleyin:
 
 Bu depoyu klonlayın:
 
-git clone [https://github.com/kullaniciadi/fatura-takip.git](https://github.com/kullaniciadi/fatura-takip.git)
+git clone [https://github.com/darakcilar/FaturaTakip.git](https://github.com/darakcilar/FaturaTakip.git)
 
 
 local.properties dosyanızı açın ve Gemini API anahtarınızı ekleyin:
@@ -63,24 +63,24 @@ Projeyi Android Studio ile açın ve Sync Project with Gradle Files butonuna bas
 📸 Ekran Görüntüleri
 
 Ana Ekran
-![WhatsApp Image 2026-01-09 at 02 12 41](https://github.com/user-attachments/assets/d02a64d9-cb3e-46b9-b873-0379ef7cbaeb)
 
-Kredi Hesaplama
-![WhatsApp Image 2026-01-09 at 02 12 40 (1)](https://github.com/user-attachments/assets/92f269e9-72e9-4940-85ba-2be06cfa096e)
+Kredi Hesaplma
 
 Analiz
-![WhatsApp Image 2026-01-09 at 02 12 40](https://github.com/user-attachments/assets/c81313b8-52ff-432b-9c9c-d6ecd930f067)
 
+<img src="" width="250">![WhatsApp Image 2026-01-09 at 02 12 41](https://github.com/user-attachments/assets/fef3da42-6202-46d3-9608-2da40250f891)
+
+
+<img src="" width="250">![WhatsApp Image 2026-01-09 at 02 12 40 (1)](https://github.com/user-attachments/assets/33dcb1e9-1095-43cd-97c3-fae8bdedcb92)
+
+
+<img src="" width="250">![WhatsApp Image 2026-01-09 at 02 12 40](https://github.com/user-attachments/assets/00701f75-6b53-429c-8374-52df1a01a93b)
+
+
+Not: Resim boyutlarını ayarlamak için width="250" değerini değiştirebilirsiniz (Örn: width="300" veya width="50%").
 
 📄 Lisans
 
 Bu proje MIT Lisansı ile lisanslanmıştır. Detaylar için LICENSE dosyasına göz atabilirsiniz.
 
 Geliştirici: Furkan Darakçılar
-
-
-
-
-
-
-
