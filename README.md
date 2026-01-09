@@ -1,3 +1,5 @@
+[![Canlı Rapor](https://img.shields.io/badge/Proje_Raporu-Canlı_İzle-purple?style=for-the-badge&logo=appveyor)](https://darakcilar.github.io/FaturaTakip/)
+
 📊 Fatura Takip - Akıllı Finans Asistanı
 
 Fatura Takip, faturalarınızı yönetmenin en modern ve akıllı yoludur. Geleneksel veri girişini ortadan kaldıran yapay zeka destekli tarama özelliği ve şık tasarımıyla finansal süreçlerinizi kolaylaştırır.
