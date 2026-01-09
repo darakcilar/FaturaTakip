@@ -68,14 +68,6 @@ Kredi Hesaplma
 
 Analiz
 
-<img src="![WhatsApp Image 2026-01-09 at 02 12 41](https://github.com/user-attachments/assets/fef3da42-6202-46d3-9608-2da40250f891)" width="250">
-
-
-<img src="![WhatsApp Image 2026-01-09 at 02 12 40 (1)](https://github.com/user-attachments/assets/33dcb1e9-1095-43cd-97c3-fae8bdedcb92)" width="250">
-
-
-<img src="![WhatsApp Image 2026-01-09 at 02 12 40](https://github.com/user-attachments/assets/00701f75-6b53-429c-8374-52df1a01a93b" width="250">
-
 
 📄 Lisans
 
